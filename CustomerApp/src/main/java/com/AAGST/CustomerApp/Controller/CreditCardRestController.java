@@ -31,17 +31,17 @@ public class CreditCardRestController {
     }
     }
 
-    @PostMapping("/delete")
-    public ResponseEntity<String> deleteCreditCard(@RequestBody CreditCardDeleteSender query)
-    {
-        try {
-            this.creditCardService.deleteCreditCard(query);
-            return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");
-        }
-        catch(Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
-        }
-    }
+//    @PostMapping("/delete")
+//    public ResponseEntity<String> deleteCreditCard(@RequestBody CreditCardDeleteSender query)
+//    {
+//        try {
+//            this.creditCardService.deleteCreditCard(query);
+//            return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");
+//        }
+//        catch(Exception e){
+//            return ResponseEntity.status(HttpStatus.OK).body("Delete was'nt Successfully");
+//        }
+//    }
     @PutMapping("/delete/{cardNumber}/{customerId}")
     public ResponseEntity<String> updateCreditCardStatus(@PathVariable String cardNumber,@PathVariable long customerId)
     {
@@ -51,7 +51,7 @@ public class CreditCardRestController {
             return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");
         }
         catch(Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
+            return ResponseEntity.status(HttpStatus.OK).body("Delete was'nt Successfully");
         }
     }
     @DeleteMapping("/delete/{cardNumber}/{customerId}")
@@ -63,7 +63,7 @@ public class CreditCardRestController {
             return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");
         }
         catch(Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
+            return ResponseEntity.status(HttpStatus.OK).body("Delete was'nt Successfully");
         }
     }
 
