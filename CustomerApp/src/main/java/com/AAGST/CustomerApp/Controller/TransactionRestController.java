@@ -48,16 +48,15 @@ public class TransactionRestController {
         query.setMerchant(params.get("merchant"));
         query.setCity(params.get("city"));
         query.setState(params.get("state"));
-        query.setCityPopulationLower(Long.parseLong(params.get("cityPopulationUpper")));
-        query.setCityPopulationUpper(Long.parseLong(params.get("cityPopulationLower")));
         query.setTransactionAmountLower(Long.parseLong(params.get("transactionAmountLower")));
         query.setTransactionAmountUpper(Long.parseLong(params.get("transactionAmountUpper")));
+        query.setProfession(params.get("profession"));
         return query;
     }
     private void paramsPrinter(Map<String, String> params){
         for (String name: params.keySet()) {
-            String key = name.toString();
-            String value = params.get(name).toString();
+            String key = name;
+            String value = params.get(key);
             System.out.println(key + " " + value);
         }
     }

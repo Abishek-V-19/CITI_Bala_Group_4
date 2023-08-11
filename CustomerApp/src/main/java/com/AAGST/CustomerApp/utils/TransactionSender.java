@@ -12,24 +12,22 @@ public class TransactionSender {
     private String merchant;
     private String city;
     private String state;
-    private long cityPopulationUpper ;
-    private long cityPopulationLower ;
     private double transactionAmountUpper;
     private double transactionAmountLower;
+    private String profession;
     public TransactionSender(){
 
     }
-    public TransactionSender( String gender, String category, String merchant, String city, String state, long cityPopulationUpper, long cityPopulationLower, double transactionAmountUpper, double transactionAmountLower) {
+    public TransactionSender( String gender, String category, String merchant, String city, String state, double transactionAmountUpper, double transactionAmountLower,String profession) {
 
         this.gender = gender;
         this.category = category;
         this.merchant = merchant;
         this.city = city;
         this.state = state;
-        this.cityPopulationUpper = cityPopulationUpper;
-        this.cityPopulationLower = cityPopulationLower;
         this.transactionAmountUpper = transactionAmountUpper;
         this.transactionAmountLower = transactionAmountLower;
+        this.profession = profession;
     }
 
 
@@ -73,21 +71,6 @@ public class TransactionSender {
         this.state = state;
     }
 
-    public long getCityPopulationUpper() {
-        return cityPopulationUpper;
-    }
-
-    public void setCityPopulationUpper(long cityPopulationUpper) {
-        this.cityPopulationUpper = cityPopulationUpper;
-    }
-
-    public long getCityPopulationLower() {
-        return cityPopulationLower;
-    }
-
-    public void setCityPopulationLower(long cityPopulationLower) {
-        this.cityPopulationLower = cityPopulationLower;
-    }
 
     public double getTransactionAmountUpper() {
         return transactionAmountUpper;
@@ -105,6 +88,14 @@ public class TransactionSender {
         this.transactionAmountLower = transactionAmountLower;
     }
 
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
     @Override
     public String toString() {
         return "TransactionSender{" +
@@ -113,8 +104,6 @@ public class TransactionSender {
                 ", merchant='" + merchant + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
-                ", cityPopulationUpper=" + cityPopulationUpper +
-                ", cityPopulationLower=" + cityPopulationLower +
                 ", transactionAmountUpper=" + transactionAmountUpper +
                 ", transactionAmountLower=" + transactionAmountLower +
                 '}';

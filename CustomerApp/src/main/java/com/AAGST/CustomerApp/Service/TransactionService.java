@@ -43,8 +43,8 @@ public class TransactionService {
         if(!recieved.getState().equals("null")) {
             query.addCriteria(Criteria.where("state").is(recieved.getState()));
         }
-        if(recieved.getCityPopulationUpper() > 0 && recieved.getCityPopulationLower() > 0 && recieved.getCityPopulationLower() <= recieved.getCityPopulationUpper()){
-            query.addCriteria(Criteria.where("city_population").gte(recieved.getCityPopulationLower()).lte(recieved.getCityPopulationUpper()));
+        if(!recieved.getProfession().equals("null")) {
+            query.addCriteria(Criteria.where("Job").is(recieved.getProfession()));
         }
         if(recieved.getTransactionAmountUpper() >= 0 && recieved.getTransactionAmountLower() >= 0 && recieved.getTransactionAmountLower() <= recieved.getTransactionAmountUpper()){
             query.addCriteria(Criteria.where("amt").gte(recieved.getTransactionAmountLower()).lte(recieved.getTransactionAmountUpper()));
