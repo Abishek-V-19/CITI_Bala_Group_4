@@ -71,6 +71,20 @@ public class CreditCardService {
         }
 
         CreditCard found = mongoTemplate.findOne(query,CreditCard.class);
+        mongoTemplate.remove(found);
+        System.out.println(found.toString());
+
+    }
+    public void updateCreditCard(CreditCardDeleteSender recieved) throws CardNotExistException {
+        // checking if creditcard exist by cardnumber and customerId
+        Query query = new Query(Criteria.where("_id").is(recieved.getCardNumber()));
+        query.addCriteria(Criteria.where("customerId").is(recieved.getCustomerId()));
+
+        if(!this.mongoTemplate.exists(query, CreditCard.class)){
+            throw new CardNotExistException("Credit card details wrong - please enter a valid card number and corresponding customer number");
+        }
+
+        CreditCard found = mongoTemplate.findOne(query,CreditCard.class);
         found.setStatus("Cancelled");
         mongoTemplate.save(found);
         System.out.println(found.toString());

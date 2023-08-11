@@ -42,6 +42,30 @@ public class CreditCardRestController {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
         }
     }
+    @PutMapping("/delete/{cardNumber}/{customerId}")
+    public ResponseEntity<String> updateCreditCardStatus(@PathVariable String cardNumber,@PathVariable long customerId)
+    {
+        try {
+            CreditCardDeleteSender query = new CreditCardDeleteSender(cardNumber,customerId);
+            this.creditCardService.updateCreditCard(query);
+            return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");
+        }
+        catch(Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
+        }
+    }
+    @DeleteMapping("/delete/{cardNumber}/{customerId}")
+    public ResponseEntity<String> deleteCreditCard(@PathVariable String cardNumber,@PathVariable long customerId)
+    {
+        try {
+            CreditCardDeleteSender query = new CreditCardDeleteSender(cardNumber,customerId);
+            this.creditCardService.deleteCreditCard(query);
+            return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");
+        }
+        catch(Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
+        }
+    }
 
 
 }
