@@ -1,3 +1,18 @@
+function addOptions(arr,opt){
+	temp = '<option value="null">None</option>';
+	for(item of arr){
+		temp+=`<option value="${item}">${item}</option>`;
+	}
+	document.getElementById(opt).innerHTML = temp;
+}
+function loadFilterOptions(){
+	addOptions(categories,"category");
+	addOptions(merchants,"merchant");
+	addOptions(city,"city");
+	addOptions(states,"state");
+	addOptions(professions,"profession");
+}
+loadFilterOptions();
 function search(){
 	document.getElementById("pageNo").textContent="1";
 	getItems();
@@ -8,8 +23,8 @@ function getItems() {
 	fetch(url)//promise object to return data from Rest API
 		.then(response => { return response.json(); }) //resolve , data from resolve is passed to next then
 		.then(items => {
+			var temp ="";
 			if (items.transaction.length > 0) {
-				var temp ="";
 				items.transaction.forEach((itemData) => {
 					temp += "<tr>";
 					temp += "<td>" + itemData.transactionId + "</td>";
@@ -24,8 +39,8 @@ function getItems() {
 					temp += "<td>" + itemData.state + "</td>";
 					temp+= "</tr>"
 				});
-				document.getElementById('tableItems').innerHTML = temp;
 			}
+			document.getElementById('tableItems').innerHTML = temp;
 		});
 }
 function getFilters(){

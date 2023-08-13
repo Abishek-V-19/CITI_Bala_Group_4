@@ -4,7 +4,7 @@
     <meta charset="ISO-8859-1">
     <title>Music Items</title>
     <link href="styles.css" type="text/css" rel="stylesheet" />
-    <script src="scripts.js"></script>
+    <script src="filterOptions.js"></script>
 </head>
 <!--<body style="background-color:aquamarine; color:darkgreen" onload="getItems()">-->
 <body onload="getItems()">
@@ -26,23 +26,24 @@
     </div>
     <div class="filterDivs" id="categorydiv">
         <p>Category</p>
-        <input id="category" type="text">
+        <select id="category">
+        </select>
     </div>
     <div class="filterDivs" id="merchantdiv">
         <p>Merchant</p>
-        <input id="merchant" type="text">
+        <select id="merchant"></select>
     </div>
     <div class="filterDivs" id="citydiv">
         <p>City</p>
-        <input id="city" type="text">
+        <select id="city"></select>
     </div>
     <div class="filterDivs" id="statediv">
         <p>State</p>
-        <input id="state" type="text">
+        <select id="state"></select>
     </div>
     <div class="filterDivs" id="professiondiv">
         <p>Profession</p>
-        <input id="profession" type="text">
+        <select id="profession"></select>
     </div>
     <div class="filterDivs" id="limitdiv">
         <p>Limit</p>
@@ -75,5 +76,6 @@
         <button onclick="nextPage()">></button>
     </div>
 </section>
+<script src="scripts.js"></script>
 </body>
 </html>
