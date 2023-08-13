@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+    border: 1px red solid;
+    font-size: 1.1rem;
+  }
+  body{
+    text-align: center;
+    height: 100%;
+    width:100% ;
+  }
+  section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .filterDivs{
+    display: block;
+    width: 10%;
+  }
+  #filters{
+    display: flexbox;
+    overflow: hidden;
+    width: 100%;
+  }
+  #pagesdiv{
+    display:flex;
+    width: 15%;
+  }
+  #transactions{
+    display: inline-block;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  #pageNav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #pagesize{
+    width:25%;
+  }
+  table, th, td {
+    border: 1px solid;
+    border-collapse: collapse;
+  }
+  

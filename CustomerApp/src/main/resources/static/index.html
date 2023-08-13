@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Music Items</title>
+    <link href="styles.css" type="text/css" rel="stylesheet" />
+    <script src="scripts.js"></script>
+</head>
+<!--<body style="background-color:aquamarine; color:darkgreen" onload="getItems()">-->
+<body onload="getItems()">
+<h2>Transactions</h2>
+<p><a href="/swagger-ui/index.html">Swagger UI to explore and test the REST API</a></p>
+<section id="filters">
+    <div class="filterDivs" id="pagesdiv" >
+        <p>Show</p>
+        <input id="pagesize" type="number" value=10>
+        <p>entries</p>
+    </div>
+    <div class="filterDivs" id="genderdiv">
+        <p>Gender</p>
+        <select id="gender">
+            <option value="null">Null</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select>
+    </div>
+    <div class="filterDivs" id="categorydiv">
+        <p>Category</p>
+        <input id="category" type="text">
+    </div>
+    <div class="filterDivs" id="merchantdiv">
+        <p>Merchant</p>
+        <input id="merchant" type="text">
+    </div>
+    <div class="filterDivs" id="citydiv">
+        <p>City</p>
+        <input id="city" type="text">
+    </div>
+    <div class="filterDivs" id="statediv">
+        <p>State</p>
+        <input id="state" type="text">
+    </div>
+    <div class="filterDivs" id="professiondiv">
+        <p>Profession</p>
+        <input id="profession" type="text">
+    </div>
+    <div class="filterDivs" id="limitdiv">
+        <p>Limit</p>
+        <input id="lower" type="text" placeholder="Lower limit">
+        <input id="upper" type="text" placeholder="Upper limit">
+    </div>
+    <button id="search" onclick="search()">Search</button>
+</section>
+<section id="transactions">
+    <table id="items">
+       <thead>
+       <tr>
+           <th>Transaction Id</th>
+           <th>TransactionDateTime</th>
+            <th>Transaction Amount</th>
+           <th>Name</th>
+           <th>Gender</th>
+           <th>Job</th>
+            <th>Category</th>
+            <th>Merchant</th>
+            <th>City</th>
+            <th>State</th>
+        </tr>
+        </thead>
+        <tbody id="tableItems"></tbody>
+    </table>
+    <div id="pageNav">
+        <button onclick="prevPage()"><</button>
+        <p id="pageNo">1</p>
+        <button onclick="nextPage()">></button>
+    </div>
+</section>
+</body>
+</html>
