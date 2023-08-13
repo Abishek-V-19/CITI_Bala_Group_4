@@ -1,8 +1,9 @@
-* {
-    box-sizing: border-box;
-    /* border: 1px red solid; */
-    font-size: 1.1rem;
-  }
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
   body{
     text-align: center;
     height: 100%;
@@ -16,15 +17,20 @@
   .filterDivs{
     display: block;
     width: 10%;
+    margin: auto;
   }
   #filters{
-    display: flexbox;
+    display: flex;
+    justify-content: space-around ;
+    padding-left: 15px;
+    padding-right: 15px;
     overflow: hidden;
     width: 100%;
   }
   #pagesdiv{
     display:flex;
-    width: 15%;
+    width: 10%;
+    justify-content: flex-end;
   }
   #transactions{
     display: inline-block;
@@ -37,10 +43,15 @@
     justify-content: center;
   }
   #pagesize{
-    width:25%;
+    width:35%;
   }
   table, th, td {
     border: 1px solid;
     border-collapse: collapse;
   }
-  
+  #lower,#upper{
+    width: 100%;
+  }
+  select{
+      width: 100%;
+  }
