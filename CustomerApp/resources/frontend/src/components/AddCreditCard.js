@@ -52,7 +52,7 @@ function AddCreditCard() {
           <input
             type="number"
             name="customerId"
-            value={postData.title}
+            value={postData.customerId}
             onChange={handleInputChange}
           />
         </div>
