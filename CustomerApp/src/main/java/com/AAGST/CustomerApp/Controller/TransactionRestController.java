@@ -37,20 +37,42 @@ public class TransactionRestController {
     {
         TransactionSender query = this.getTransactionSenderObj(params);
        TransactionPerPage p = this.transactionService.getTransactionByPagination(pageno,size,query);
+       paramsPrinter(params);
         return ResponseEntity.status(HttpStatus.OK).body(p);
     }
 
     private TransactionSender getTransactionSenderObj(Map<String, String> params){
         paramsPrinter(params);
         TransactionSender query = new TransactionSender();
-        query.setGender(params.get("gender"));
-        query.setCategory(params.get("category"));
-        query.setMerchant(params.get("merchant"));
-        query.setCity(params.get("city"));
-        query.setState(params.get("state"));
-        query.setTransactionAmountLower(Long.parseLong(params.get("transactionAmountLower")));
-        query.setTransactionAmountUpper(Long.parseLong(params.get("transactionAmountUpper")));
-        query.setProfession(params.get("profession"));
+
+        for (String name: params.keySet()) {
+            String key = name;
+            if(key.equals("gender")){
+                query.setGender(params.get("gender"));
+            }
+            else if(key.equals("category")){
+                query.setCategory(params.get("category"));
+            }
+            else if(key.equals("merchant")){
+                query.setMerchant(params.get("merchant"));
+            }
+            else if(key.equals("city")){
+                query.setCity(params.get("city"));
+            }
+            else if(key.equals("state")){
+                query.setState(params.get("state"));
+            }
+            else if(key.equals("transactionAmountLower")){
+                query.setTransactionAmountLower(Long.parseLong(params.get("transactionAmountLower")));
+            }
+            else if(key.equals("transactionAmountUpper")){
+                query.setTransactionAmountUpper(Long.parseLong(params.get("transactionAmountUpper")));
+            }
+            else if(key.equals("profession")){
+                query.setProfession(params.get("profession"));
+            }
+//            System.out.println(key + " " + value);
+        }
         return query;
     }
     private void paramsPrinter(Map<String, String> params){

@@ -7,14 +7,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 public class TransactionSender {
 
-    private String gender;
-    private String category;
-    private String merchant;
-    private String city;
-    private String state;
-    private double transactionAmountUpper;
-    private double transactionAmountLower;
-    private String profession;
+    private String gender = "null";
+    private String category = "null";
+    private String merchant = "null";
+    private String city = "null";
+    private String state = "null";
+    private double transactionAmountUpper = -1;
+    private double transactionAmountLower = -1;
+    private String profession = "null";
     public TransactionSender(){
 
     }

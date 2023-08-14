@@ -23,12 +23,12 @@ public class CreditCardRestController {
     @PostMapping("/add")
     public ResponseEntity<CreditCard> addCreditCard(@RequestBody CreditCardAddSender query)
     {   try {
-        CreditCard newCreditCard = this.creditCardService.addCreditCard(query);
-        return ResponseEntity.status(HttpStatus.OK).body(newCreditCard);
-    }
-    catch(Exception e){
-        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
-    }
+            CreditCard newCreditCard = this.creditCardService.addCreditCard(query);
+            return ResponseEntity.status(HttpStatus.OK).body(newCreditCard);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
+        }
     }
 
 //    @PostMapping("/delete")
@@ -51,7 +51,7 @@ public class CreditCardRestController {
             return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");
         }
         catch(Exception e){
-            return ResponseEntity.status(HttpStatus.OK).body("Delete was'nt Successfully");
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
         }
     }
     @DeleteMapping("/delete/{cardNumber}/{customerId}")
@@ -63,7 +63,8 @@ public class CreditCardRestController {
             return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");
         }
         catch(Exception e){
-            return ResponseEntity.status(HttpStatus.OK).body("Delete was'nt Successfully");
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
+
         }
     }
 

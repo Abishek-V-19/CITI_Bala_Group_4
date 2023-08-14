@@ -29,6 +29,7 @@ public class TransactionService {
     // used to generate query for getTransactions and getTransactionByPagination - both has same query
     private Query getQuery(Query query,TransactionSender recieved){
         if(!recieved.getGender().equals("null")){
+            System.out.println("asasas"+recieved.getGender());
             query.addCriteria(Criteria.where("gender").is(recieved.getGender()));
         }
         if(!recieved.getCategory().equals("null")) {
@@ -41,6 +42,7 @@ public class TransactionService {
             query.addCriteria(Criteria.where("city").is(recieved.getCity()));
         }
         if(!recieved.getState().equals("null")) {
+            System.out.println("asasas"+recieved.getGender());
             query.addCriteria(Criteria.where("state").is(recieved.getState()));
         }
         if(!recieved.getProfession().equals("null")) {

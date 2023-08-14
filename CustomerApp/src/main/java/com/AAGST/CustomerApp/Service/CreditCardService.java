@@ -2,9 +2,7 @@ package com.AAGST.CustomerApp.Service;
 
 import com.AAGST.CustomerApp.Entity.CreditCard;
 import com.AAGST.CustomerApp.Entity.Customer;
-import com.AAGST.CustomerApp.Entity.Transaction;
 import com.AAGST.CustomerApp.Exception.CardNotExistException;
-import com.AAGST.CustomerApp.Exception.CreditCardNotExistException;
 import com.AAGST.CustomerApp.Exception.CustomerNotExistException;
 import com.AAGST.CustomerApp.Repository.CreditCardRepository;
 import com.AAGST.CustomerApp.Repository.CustomerRepository;
