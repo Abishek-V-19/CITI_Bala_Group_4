@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 
 function DeleteCreditCard() {
   const [putData, setPutData] = useState({
     customerId: 0,
-    cardNumber: "",
+    cardNumber: "cardnumberhere",
   });
+  const [loader, setLoader] = useState(false);
   const [renderResponse, setRenderResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
   const handleInputChange = (event) => {
@@ -17,12 +19,14 @@ function DeleteCreditCard() {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoader(true);
     try {
       console.log(putData);
       let url = `http://localhost:8080/CreditCard/delete/${putData.cardNumber}/${putData.customerId}`;
       const response = await axios.put(url);
       console.log(response.data);
       setResponseMessage(response.data);
+      setLoader(false);
       setRenderResponse(true);
     } catch (error) {
       console.error("Error:", error);
@@ -53,6 +57,12 @@ function DeleteCreditCard() {
         </div>
         <button type="submit">Submit</button>
       </form>
+      {loader && (
+        <div>
+          {" "}
+          <CircularProgress />
+        </div>
+      )}
       {renderResponse && <div>{responseMessage}</div>}
     </div>
   );
