@@ -1,0 +1,10 @@
+{
+"gender":"null",
+"category":"null",
+"merchant":"null",
+"city":"null",
+"state":"null",
+"transactionAmountLower":"-1",
+"transactionAmountUpper":"-1",
+"profession":"null"
+}

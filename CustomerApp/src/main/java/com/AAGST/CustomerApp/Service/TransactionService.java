@@ -74,7 +74,7 @@ public class TransactionService {
         if(!recieved.getProfession().equals("null")) {
             query.addCriteria(Criteria.where("Job").is(recieved.getProfession()));
         }
-        if(recieved.getTransactionAmountUpper() >= 0 && recieved.getTransactionAmountLower() >= 0 && recieved.getTransactionAmountLower() <= recieved.getTransactionAmountUpper()){
+        if(recieved.getTransactionAmountUpper() >= 0 && recieved.getTransactionAmountLower() >= 0 && recieved.getTransactionAmountLower() < recieved.getTransactionAmountUpper()){
             query.addCriteria(Criteria.where("amt").gte(recieved.getTransactionAmountLower()).lte(recieved.getTransactionAmountUpper()));
         }
 

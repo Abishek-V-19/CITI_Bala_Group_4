@@ -1,12 +1,11 @@
 
 export function getFilters(val){
 	let url = "http://localhost:8080/Transactions/pages?";
-	// let islimit=true;
-	if(val.upper=="" || val.lower==""){
-		val.upper = "-1";
-		val.lower = "-1";
-		// islimit = false;
-	}
+	// if(val.upper=="" || val.lower==""){
+	// 	val.upper = "0";
+	// 	val.lower = "0";
+	// 	// islimit = false;
+	// }
 	// for(let key in val){
 	// 	if(val.key==""){
 	// 		val.key= "null"

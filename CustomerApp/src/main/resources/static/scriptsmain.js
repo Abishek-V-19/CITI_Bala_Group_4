@@ -44,7 +44,7 @@ function getItems() {
 		});
 }
 function getFilters(){
-	var url = "/Transactions/pages?";
+	var url = "http://localhost:8080/Transactions/pages?";
 	var val = {};
 	val["pageno"] = (parseInt(document.getElementById("pageNo").textContent)-1).toString() ;
 	val["pagesize"]=document.getElementById("pagesize").value;

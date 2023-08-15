@@ -41,6 +41,10 @@ function Filters() {
     event.preventDefault();
     const url = getFilters(transaction);
     console.log(url);
+    setTransaction((prevData) => ({
+      ...prevData,
+      pageno:"0",
+    }));
     try {
       console.log(transaction);
       await fetch(url)
@@ -147,7 +151,7 @@ function Filters() {
           <p>Limit</p>
           <input
             name="lower"
-            type="text"
+            type="number"
             placeholder="Lower limit"
             value={transaction.lower}
             onChange={handleChange}
@@ -155,7 +159,7 @@ function Filters() {
           ></input>
           <input
             name="upper"
-            type="text"
+            type="number"
             placeholder="Upper limit"
             value={transaction.upper}
             onChange={handleChange}
