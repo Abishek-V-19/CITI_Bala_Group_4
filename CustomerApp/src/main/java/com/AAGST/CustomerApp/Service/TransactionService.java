@@ -1,11 +1,13 @@
 package com.AAGST.CustomerApp.Service;
 
 import com.AAGST.CustomerApp.Entity.Transaction;
+import com.AAGST.CustomerApp.utils.AggregateData;
+import com.AAGST.CustomerApp.utils.SummaryData;
 import com.AAGST.CustomerApp.utils.TransactionPerPage;
 import com.AAGST.CustomerApp.utils.TransactionSender;
-import com.AAGST.CustomerApp.Repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.domain.Page;
@@ -14,22 +16,47 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 @Service
 public class TransactionService {
     @Autowired
-    private TransactionRepository transactionRepository;
-    @Autowired
     private MongoTemplate mongoTemplate;
-    public long getTransactionCount(){
-        return this.transactionRepository.count();
+
+    private MatchOperation getMatchOperationObj(TransactionSender recieved){
+        List<Criteria> criteriaList = new ArrayList<>();
+        if(!recieved.getGender().equals("null")){
+            criteriaList.add(Criteria.where("gender").is(recieved.getGender()));
+        }
+        if(!recieved.getCategory().equals("null")) {
+            criteriaList.add(Criteria.where("category").is(recieved.getCategory()));
+        }
+        if(!recieved.getMerchant().equals("null")) {
+            criteriaList.add(Criteria.where("merchant").is(recieved.getMerchant()));
+        }
+        if(!recieved.getCity().equals("null")) {
+            criteriaList.add(Criteria.where("city").is(recieved.getCity()));
+        }
+        if(!recieved.getState().equals("null")) {
+            criteriaList.add(Criteria.where("state").is(recieved.getState()));
+        }
+        if(!recieved.getProfession().equals("null")) {
+            criteriaList.add(Criteria.where("Job").is(recieved.getProfession()));
+        }
+        if(recieved.getTransactionAmountUpper() >= 0 && recieved.getTransactionAmountLower() >= 0 && recieved.getTransactionAmountLower() <= recieved.getTransactionAmountUpper()){
+            criteriaList.add(Criteria.where("amt").gte(recieved.getTransactionAmountLower()).lte(recieved.getTransactionAmountUpper()));
+        }
+        MatchOperation match =new MatchOperation(!criteriaList.isEmpty()?new Criteria().andOperator(criteriaList.toArray(new Criteria[criteriaList.size()])):new Criteria());
+        return match;
     }
 
     // used to generate query for getTransactions and getTransactionByPagination - both has same query
-    private Query getQuery(Query query,TransactionSender recieved){
+    public Query getQuery(Query query,TransactionSender recieved){
+        Criteria a = new Criteria();
         if(!recieved.getGender().equals("null")){
-            System.out.println("asasas"+recieved.getGender());
             query.addCriteria(Criteria.where("gender").is(recieved.getGender()));
         }
         if(!recieved.getCategory().equals("null")) {
@@ -42,7 +69,6 @@ public class TransactionService {
             query.addCriteria(Criteria.where("city").is(recieved.getCity()));
         }
         if(!recieved.getState().equals("null")) {
-            System.out.println("asasas"+recieved.getGender());
             query.addCriteria(Criteria.where("state").is(recieved.getState()));
         }
         if(!recieved.getProfession().equals("null")) {
@@ -56,9 +82,8 @@ public class TransactionService {
     }
     public List<Transaction> getTransactions(TransactionSender recieved){
         Query query = getQuery(new Query(),recieved);
-//        System.out.println(query.toString( ));
+        query.limit(20);
         List<Transaction> ret= this.mongoTemplate.find(query,Transaction.class);
-//        return mongoTemplate.findOne(query, Transaction.class);
         return ret;
 
     }
@@ -67,6 +92,7 @@ public class TransactionService {
         // size - no. of docs per page
         Pageable pageable = PageRequest.of(pageNo,size);
         Query query = getQuery(new Query().with(pageable),recieved);
+
         Page<Transaction> page = PageableExecutionUtils.getPage(this.mongoTemplate.find(query,Transaction.class), pageable, () -> mongoTemplate.count(query, Transaction.class));
 
         int totalPages = page.getTotalPages();
@@ -80,9 +106,64 @@ public class TransactionService {
         response.setPageSize(pageSize);
         response.setTotalElements(totalElements);
         response.setTotalPages(totalPages);
-
         return response;
 
+    }
+
+    public SummaryData getSummary(TransactionSender recieved){
+
+        SummaryData summaryData = new SummaryData();
+
+        MatchOperation filterStates = this.getMatchOperationObj(recieved);
+
+//        String []items = {"gender","category","merchant","city","state","Job"};
+//        for(String item:items){
+//            GroupOperation groupByItem = group(item).sum("amt").as("amount");
+//            List<AggregateData> result;
+//            Aggregation aggregation = newAggregation(filterStates,groupByItem);
+//            result = mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class).getMappedResults();
+//
+//        }
+        GroupOperation groupByGender = group("gender").sum("amt").as("amount");
+        GroupOperation groupByCategory = group("category").sum("amt").as("amount");
+        GroupOperation groupByMerchant = group("merchant").sum("amt").as("amount");
+        GroupOperation groupByCity = group("city").sum("amt").as("amount");
+        GroupOperation groupByState = group("state").sum("amt").as("amount");
+        GroupOperation groupByProfession = group("Job").sum("amt").as("amount");
+
+//        AggregationOperation limit = Aggregation.limit(20);
+
+        List<AggregateData> result;
+        Aggregation aggregation;
+
+        aggregation = newAggregation(filterStates,groupByGender);
+        result =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class).getMappedResults();
+        summaryData.setGender(result);
+
+        aggregation = newAggregation(filterStates,groupByCategory);
+        result =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class).getMappedResults();
+        summaryData.setCategory(result);
+
+        aggregation = newAggregation(filterStates,groupByMerchant);
+        result =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class).getMappedResults();
+        summaryData.setMerchant(result);
+
+        aggregation = newAggregation(filterStates,groupByCity);
+        result =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class).getMappedResults();
+        summaryData.setCity(result);
+
+        aggregation = newAggregation(filterStates,groupByState);
+        result =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class).getMappedResults();
+        summaryData.setState(result);
+
+        aggregation = newAggregation(filterStates,groupByProfession);
+        result =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class).getMappedResults();
+        summaryData.setProfession(result);
+
+
+
+        System.out.println("---------------agg ----"+summaryData);
+        return summaryData;
     }
 
 

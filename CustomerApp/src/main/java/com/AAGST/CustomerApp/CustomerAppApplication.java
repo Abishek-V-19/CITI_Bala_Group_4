@@ -12,7 +12,7 @@ public class CustomerAppApplication {
 
 		ConfigurableApplicationContext context = SpringApplication.run(CustomerAppApplication.class, args);
 		TransactionService transactionService = context.getBean(TransactionService.class);
-		System.out.println(transactionService.getTransactionCount());
+//		System.out.println(transactionService.getTransactionCount());
 
 	}
 

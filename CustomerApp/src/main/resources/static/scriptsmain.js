@@ -43,10 +43,10 @@ function getItems() {
 			document.getElementById('tableItems').innerHTML = temp;
 		});
 }
-export function getFilters(){
-	var url = "http://localhost:8080/Transactions/pages?";
+function getFilters(){
+	var url = "/Transactions/pages?";
 	var val = {};
-	val["pageno"] = (parseInt(document.getElementById("pageNo").textContent)-1) ;
+	val["pageno"] = (parseInt(document.getElementById("pageNo").textContent)-1).toString() ;
 	val["pagesize"]=document.getElementById("pagesize").value;
 	val["gender"]= document.getElementById("gender").value;
 	val["category"]= document.getElementById("category").value;
@@ -65,7 +65,7 @@ export function getFilters(){
 			val[key] = "null"
 		}
 	}
-	console.log(val.merchant);
+	
 	url+="pageno="+val["pageno"];
 	url+="&size="+val["pagesize"];
 	url+="&gender="+ val["gender"];

@@ -2,6 +2,7 @@ package com.AAGST.CustomerApp.Controller;
 
 import com.AAGST.CustomerApp.Entity.Transaction;
 import com.AAGST.CustomerApp.Service.TransactionService;
+import com.AAGST.CustomerApp.utils.SummaryData;
 import com.AAGST.CustomerApp.utils.TransactionPerPage;
 import com.AAGST.CustomerApp.utils.TransactionSender;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +28,27 @@ public class TransactionRestController {
     {
         TransactionSender query = this.getTransactionSenderObj(params);
         List<Transaction> found = this.transactionService.getTransactions(query);
+        this.transactionService.getSummary(query);
         System.out.println(found.toString());
         return ResponseEntity.status(HttpStatus.OK).body(found);
     }
 
     @GetMapping("/pages")
-    public ResponseEntity<TransactionPerPage>  addTransactionPerPageResponse(@RequestParam(required = false, defaultValue = "0") int pageno,
+    public ResponseEntity<TransactionPerPage>  getTransactionPerPageResponse(@RequestParam(required = false, defaultValue = "0") int pageno,
                                                                                    @RequestParam(required = false, defaultValue = "10") int size, @RequestParam Map<String, String> params)
     {
         TransactionSender query = this.getTransactionSenderObj(params);
-       TransactionPerPage p = this.transactionService.getTransactionByPagination(pageno,size,query);
+       TransactionPerPage page = this.transactionService.getTransactionByPagination(pageno,size,query);
        paramsPrinter(params);
-        return ResponseEntity.status(HttpStatus.OK).body(p);
+        return ResponseEntity.status(HttpStatus.OK).body(page);
+    }
+    @GetMapping("/summary")
+    public ResponseEntity<SummaryData> getSummaryData(@RequestParam Map<String, String> params)
+    {
+        TransactionSender query = this.getTransactionSenderObj(params);
+        SummaryData summaryData = this.transactionService.getSummary(query);
+
+        return ResponseEntity.status(HttpStatus.OK).body(summaryData);
     }
 
     private TransactionSender getTransactionSenderObj(Map<String, String> params){
