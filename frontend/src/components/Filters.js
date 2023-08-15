@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import {categories,professions,merchants,city ,states} from "./filterOptions";
 import {getFilters} from './scripts';
+import Table from './Table';
+
 function Filters() {
+  const [response,setResponse] = useState({});
   const [transaction, setTransaction] = useState({
     pageno:"0",
     pagesize:"10",
@@ -20,15 +23,28 @@ function Filters() {
     console.log(url);
     try {
       console.log(transaction);
-      //transaction object will have query details..
-      //API query to view transactions goes here..
-      const response = await fetch(url).then(response => { return response.json(); }) 
-      //After query is successfully completed, transaction table will be rendered..
-      console.log(response);
+      await fetch(url).then(response => { return response.json(); }).then(data => setResponse(data));
     } catch (error) {
       console.error("Error:", error);
     }
   };
+  const handlePrev = () =>{
+    const temp = parseInt(transaction.pageno);
+    if(temp != 0){
+    setTransaction((prevData) => ({
+      ...prevData,
+      pageno: (temp-1).toString(),
+    }));}
+    // handleSubmit();
+  }
+  const handleNext = () =>{
+    const temp = parseInt(transaction.pageno);
+    setTransaction((prevData) => ({
+      ...prevData,
+      pageno: (temp+1).toString(),
+    }));
+    // handleSubmit();
+  }
   const handleChange = (event) => {
     const { name, value } = event.target;
     console.log(name,value);
@@ -38,10 +54,11 @@ function Filters() {
     }));
   };
   return (
-    <div>
+  <div id ="body">
+    <div id="filters">
       <form onSubmit={handleSubmit}>
-      <div>
-        <p>Show</p>
+        <div>
+          <p>Show</p>
           <input name="pagesize" type="number" value={transaction.pagesize} onChange={handleChange}></input>
           <p>entries</p>
         </div>
@@ -106,6 +123,13 @@ function Filters() {
         <button type="submit">Search</button>
       </form>
     </div>
+    <Table transactions={response}/>
+    <div id="pageNav">
+      <button onClick={handlePrev}>prev</button>
+      <p id="pageNo">{parseInt(transaction.pageno)+1}</p>
+      <button onClick={handleNext}>next</button>
+    </div>
+  </div>
   );
 }
 
