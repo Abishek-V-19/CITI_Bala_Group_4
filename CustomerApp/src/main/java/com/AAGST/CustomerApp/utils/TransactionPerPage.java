@@ -50,4 +50,15 @@ public class TransactionPerPage {
     public void setTransaction(List<com.AAGST.CustomerApp.Entity.Transaction> transaction) {
         Transaction = transaction;
     }
+
+    @Override
+    public String toString() {
+        return "TransactionPerPage{" +
+                "totalPages=" + totalPages +
+                ", totalElements=" + totalElements +
+                ", numOfelements=" + numOfelements +
+                ", pageSize=" + pageSize +
+                ", Transaction=" + Transaction +
+                '}';
+    }
 }

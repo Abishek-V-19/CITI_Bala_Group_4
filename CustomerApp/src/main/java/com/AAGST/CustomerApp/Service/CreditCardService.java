@@ -23,15 +23,8 @@ import java.util.Date;
 @Service
 public class CreditCardService {
     @Autowired
-    private CreditCardRepository creditCardRepository;
-    @Autowired
-    private CustomerRepository customerRepository;
-    @Autowired
     private MongoTemplate mongoTemplate;
 
-    private long getCreditCardCount(){
-        return this.creditCardRepository.count();
-    }
     private String curDateTime(){
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -40,11 +33,6 @@ public class CreditCardService {
     }
     public CreditCard addCreditCard(CreditCardAddSender recieved) throws CustomerNotExistException{
         // checking if customerId exist and if exist generate a creditcard
-        Query query = new Query(Criteria.where("_id").is(recieved.getCustomerId()));
-
-        if(!this.mongoTemplate.exists(query, Customer.class)){
-            throw new CustomerNotExistException("Customer Doesnot exist - Please create customer");
-        }
         CreditCard newCreditCard = new CreditCard();
         Date date = new Date();
         ObjectId cardNumber = new ObjectId(date, 100);
@@ -53,13 +41,20 @@ public class CreditCardService {
         newCreditCard.setCustomerId(recieved.getCustomerId());
         newCreditCard.setStatus("Active");
 
-        System.out.println(newCreditCard.toString());
+        return addCreditCardWorker(newCreditCard);
+    }
+    public CreditCard addCreditCardWorker(CreditCard newCreditCard) throws CustomerNotExistException{
+        Query query = new Query(Criteria.where("_id").is(newCreditCard.getCustomerId()));
 
+        if(!this.mongoTemplate.exists(query, Customer.class)){
+            throw new CustomerNotExistException("Customer Doesnot exist - Please create customer");
+        }
+        System.out.println(newCreditCard.toString());
         this.mongoTemplate.save(newCreditCard);
         return newCreditCard;
     }
 
-    public void deleteCreditCard(CreditCardDeleteSender recieved) throws CardNotExistException {
+    public CreditCard deleteCreditCard(CreditCardDeleteSender recieved) throws CardNotExistException {
         // checking if creditcard exist by cardnumber and customerId
         Query query = new Query(Criteria.where("_id").is(recieved.getCardNumber()));
         query.addCriteria(Criteria.where("customerId").is(recieved.getCustomerId()));
@@ -71,9 +66,9 @@ public class CreditCardService {
         CreditCard found = mongoTemplate.findOne(query,CreditCard.class);
         mongoTemplate.remove(found);
         System.out.println(found.toString());
-
+        return found;
     }
-    public void updateCreditCard(CreditCardDeleteSender recieved) throws CardNotExistException {
+    public CreditCard updateCreditCard(CreditCardDeleteSender recieved) throws CardNotExistException {
         // checking if creditcard exist by cardnumber and customerId
         Query query = new Query(Criteria.where("_id").is(recieved.getCardNumber()));
         query.addCriteria(Criteria.where("customerId").is(recieved.getCustomerId()));
@@ -86,6 +81,7 @@ public class CreditCardService {
         found.setStatus("Cancelled");
         mongoTemplate.save(found);
         System.out.println(found.toString());
+        return found;
 
     }
 
