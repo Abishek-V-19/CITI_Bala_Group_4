@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+
 import axios from "axios";
 
 function DeleteCreditCard() {
@@ -9,7 +14,7 @@ function DeleteCreditCard() {
   });
   const [loader, setLoader] = useState(false);
   const [renderResponse, setRenderResponse] = useState(false);
-  const [responseMessage, setResponseMessage] = useState("");
+  const [renderError, setRenderError] = useState(false);
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setPutData((prevData) => ({
@@ -25,45 +30,83 @@ function DeleteCreditCard() {
       let url = `http://localhost:8080/CreditCard/delete/${putData.cardNumber}/${putData.customerId}`;
       const response = await axios.put(url);
       console.log(response.data);
-      setResponseMessage(response.data);
       setLoader(false);
+      setRenderError(false);
       setRenderResponse(true);
     } catch (error) {
+      setRenderResponse(false);
+      setLoader(false);
+      setRenderError(true);
       console.error("Error:", error);
     }
   };
 
   return (
     <div>
-      <h1>Delete credit card</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Enter customer id:</label>
-          <input
-            type="number"
-            name="customerId"
-            value={putData.customerId}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Enter card number:</label>
-          <input
-            type="text"
-            name="cardNumber"
-            value={putData.cardNumber}
-            onChange={handleInputChange}
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <form onSubmit={handleSubmit}>
+          <Stack spacing={3} direction="row" sx={{ width: 600 }}>
+            <div>
+              <TextField
+                type="number"
+                label="Customer id"
+                name="customerId"
+                value={putData.customerId}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <TextField
+                type="text"
+                label="Card Number"
+                name="cardNumber"
+                value={putData.cardNumber}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <Button type="submit" variant="contained" color="error">
+                DELETE
+              </Button>
+            </div>
+          </Stack>
+        </form>
+      </Box>
       {loader && (
         <div>
           {" "}
           <CircularProgress />
         </div>
       )}
-      {renderResponse && <div>{responseMessage}</div>}
+      {renderResponse && (
+        <Box mt={4} display="flex" justifyContent="center" alignItems="center">
+          <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="flex-start"
+            sx={{ width: 600 }}
+          >
+            <div>
+              <h3>Card is deleted successfully.</h3>{" "}
+            </div>
+          </Stack>
+        </Box>
+      )}
+      {renderError && (
+        <Box mt={4} display="flex" justifyContent="center" alignItems="center">
+          <Stack
+            spacing={1}
+            direction="column"
+            justifyContent="center"
+            alignItems="flex-start"
+            sx={{ width: 600 }}
+          >
+            <div>
+              <h3>Please enter a proper customer id and card number.</h3>{" "}
+            </div>
+          </Stack>
+        </Box>
+      )}
     </div>
   );
 }
