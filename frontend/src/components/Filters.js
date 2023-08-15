@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {categories,professions,merchants,city ,states} from "./filterOptions";
 import {getFilters} from './scripts';
 import Table from './Table';
+import '../styles.css';
 
 function Filters() {
   const [response,setResponse] = useState({});
@@ -56,72 +57,70 @@ function Filters() {
   return (
   <div id ="body">
     <div id="filters">
-      <form onSubmit={handleSubmit}>
-        <div>
+        <div class="filterDivs" id="pagesdiv" >
           <p>Show</p>
-          <input name="pagesize" type="number" value={transaction.pagesize} onChange={handleChange}></input>
+          <input name="pagesize" id="pagesize" type="number" value={transaction.pagesize} onChange={handleChange}></input>
           <p>entries</p>
         </div>
-        <div>
+        <div class="filterDivs" id="genderdiv">
           <p>Gender</p>
-          <select name="gender" onChange={handleChange}>
+          <select name="gender" onChange={handleChange} id="gender">
           <option value= "null">None</option>
             <option value="M">Male</option>
             <option value="F">Female</option>
           </select>
         </div>
-        <div>
+        <div class="filterDivs" id="categorydiv">
         <p>Category</p>
-          <select name="category" onChange={handleChange}>
+          <select name="category" onChange={handleChange} id="category">
             <option value = "null">None</option>
             {categories.map((option, index) => {
               return <option key={index}>{option}</option>;
             })}
           </select>
         </div>
-        <div>
+        <div class="filterDivs" id="merchantdiv">
         <p>Merchant</p>
-          <select name="merchant" onChange={handleChange}>
+          <select name="merchant" onChange={handleChange} id="merchant">
             <option value = "null">None</option>
             {merchants.map((option, index) => {
               return <option key={index}>{option}</option>;
             })}
           </select>
         </div>
-        <div>
+        <div class="filterDivs" id="citydiv">
         <p>City</p>
-          <select name="city" onChange={handleChange}>
+          <select name="city" onChange={handleChange} id="city">
             <option value = "null">None</option>
             {city.map((option, index) => {
               return <option key={index}>{option}</option>;
             })}
           </select>
         </div>
-        <div>
+        <div class="filterDivs" id="statediv">
         <p>State</p>
-          <select name="state" onChange={handleChange}>
+          <select name="state" onChange={handleChange} id="state">
             <option value = "null">None</option>
             {states.map((option, index) => {
               return <option key={index}>{option}</option>;
             })}
           </select>
         </div>
-        <div>
+        <div class="filterDivs" id="professiondiv">
         <p>Profession</p>
-          <select name="profession" onChange={handleChange}>
+          <select name="profession" onChange={handleChange} id="profession">
           <option value = "null">None</option>
             {professions.map((option, index) => {
               return <option key={index}>{option}</option>;
             })}
           </select>
         </div>
-        <div>
+        <div class="filterDivs" id="limitdiv">
         <p>Limit</p>
-          <input name="lower" type="text" placeholder="Lower limit" value={transaction.lower} onChange={handleChange}></input>
-          <input name="upper" type="text" placeholder="Upper limit" value={transaction.upper} onChange={handleChange}></input>
+          <input name="lower" type="text" placeholder="Lower limit" value={transaction.lower} onChange={handleChange} id="lower"></input>
+          <input name="upper" type="text" placeholder="Upper limit" value={transaction.upper} onChange={handleChange} id="upper"></input>
         </div>
-        <button type="submit">Search</button>
-      </form>
+        <button id="search" onClick={handleSubmit}>Search</button>
     </div>
     <Table transactions={response}/>
     <div id="pageNav">

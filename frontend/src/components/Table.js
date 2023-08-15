@@ -27,7 +27,7 @@ function Table({transactions}){
          					<td>{option.transactionId}</td>
          					<td>{option.transactionDateTime}</td>
          					<td>{option.transactionAmount}</td>
-         					<td>{option.firstName} {option.lastName}</td>;
+         					<td>{option.firstName} {option.lastName}</td>
          					<td>{option.gender}</td>
          					<td>{option.job}</td>
          					<td>{option.category}</td>
