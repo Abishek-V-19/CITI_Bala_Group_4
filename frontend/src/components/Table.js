@@ -4,10 +4,10 @@ function Table({transactions}){
     console.log(transactions.transaction);
     const arr = transactions.transaction;
     return(
-        <div id="transactions">
-            <table id="items">
-                <thead>
-                    <tr>
+        <div id="transactions" class="table-responsive">
+            <table id="items" class="table table-hover table-bordered table-info">
+                <thead class="table-dark">
+                    <tr >
                         <th>Transaction Id</th>
                         <th>TransactionDateTime</th>
                         <th>Transaction Amount</th>
@@ -20,7 +20,7 @@ function Table({transactions}){
                         <th>State</th>
                     </tr>
                 </thead>
-                <tbody id="tableItems">
+                <tbody id="tableItems" >
                     {arr && arr.map(option => {
                     return (
                         <tr>

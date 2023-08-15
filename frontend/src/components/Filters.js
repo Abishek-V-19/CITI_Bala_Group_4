@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import {categories,professions,merchants,city ,states} from "./filterOptions";
 import {getFilters} from './scripts';
 import Table from './Table';
-import '../styles.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+// import '../styles.css';
+import '../filter.css';
 
 function Filters() {
   const [response,setResponse] = useState({});
@@ -117,16 +121,16 @@ function Filters() {
         </div>
         <div class="filterDivs" id="limitdiv">
         <p>Limit</p>
-          <input name="lower" type="text" placeholder="Lower limit" value={transaction.lower} onChange={handleChange} id="lower"></input>
-          <input name="upper" type="text" placeholder="Upper limit" value={transaction.upper} onChange={handleChange} id="upper"></input>
+          <input name="lower" type="number" placeholder="Lower limit" value={transaction.lower} onChange={handleChange} id="lower"></input>
+          <input name="upper" type="number" placeholder="Upper limit" value={transaction.upper} onChange={handleChange} id="upper"></input>
         </div>
-        <button id="search" onClick={handleSubmit}>Search</button>
+        <button id="search" onClick={handleSubmit} class="btn btn-outline-primary">Search</button>
     </div>
     <Table transactions={response}/>
     <div id="pageNav">
-      <button onClick={handlePrev}>prev</button>
-      <p id="pageNo">{parseInt(transaction.pageno)+1}</p>
-      <button onClick={handleNext}>next</button>
+      <button onClick={handlePrev}><SkipPreviousIcon fontSize="large"/></button>
+      <h5 id="pageNo">{parseInt(transaction.pageno)+1}</h5>
+      <button onClick={handleNext}><SkipNextIcon fontSize="large"/></button>
     </div>
   </div>
   );

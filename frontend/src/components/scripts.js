@@ -1,16 +1,18 @@
 
 export function getFilters(val){
 	let url = "http://localhost:8080/Transactions/pages?";
+	// let islimit=true;
 	if(val.upper=="" || val.lower==""){
 		val.upper = "-1";
 		val.lower = "-1";
+		// islimit = false;
 	}
 	// for(let key in val){
 	// 	if(val.key==""){
 	// 		val.key= "null"
 	// 	}
 	// }
-	console.log(val.merchant);
+	// console.log(val.merchant);
 	url+="pageno="+val["pageno"];
 	url+="&size="+val["pagesize"];
 	url+="&gender="+ val["gender"];
