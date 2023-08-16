@@ -73,10 +73,10 @@ public class TransactionRestController {
                 query.setState(params.get("state"));
             }
             else if(key.equals("transactionAmountLower")){
-                query.setTransactionAmountLower(Long.parseLong(params.get("transactionAmountLower")==""?"0":params.get("transactionAmountLower")));
+                query.setTransactionAmountLower(Long.parseLong(params.get("transactionAmountLower")==""?"-1":params.get("transactionAmountLower")));
             }
             else if(key.equals("transactionAmountUpper")){
-                query.setTransactionAmountUpper(Long.parseLong(params.get("transactionAmountUpper")==""?"0":params.get("transactionAmountUpper")));
+                query.setTransactionAmountUpper(Long.parseLong(params.get("transactionAmountUpper")==""?"-1":params.get("transactionAmountUpper")));
             }
             else if(key.equals("profession")){
                 query.setProfession(params.get("profession"));
