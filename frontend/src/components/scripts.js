@@ -24,3 +24,18 @@ export function getFilters(val){
 	url+="&profession="+val["profession"];
 	return url;
 }
+export function getCharturl(val){
+	
+	let url = "http://localhost:8080/Transactions/summary?";
+	url+="pageno="+val["pageno"];
+	url+="&size="+val["pagesize"];
+	url+="&gender="+ val["gender"];
+	url+="&category="+val["category"];
+	url+="&merchant="+val["merchant"];
+	url+="&city="+val["city"];
+	url+="&state="+val["state"];
+	url+="&transactionAmountLower="+val["lower"];
+	url+="&transactionAmountUpper="+val["upper"];
+	url+="&profession="+val["profession"];
+	return url;
+}

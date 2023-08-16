@@ -1,7 +1,8 @@
 import React, { useState,useEffect} from "react";
 import {categories,professions,merchants,city ,states} from "./filterOptions";
-import {getFilters} from './scripts';
+import {getCharturl, getFilters} from './scripts';
 import Table from './Table';
+import Charts from './Charts';
 import 'bootstrap/dist/css/bootstrap.css';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
@@ -10,6 +11,7 @@ import '../filter.css';
 
 function Filters() {
   const [response, setResponse] = useState({});
+  const [chartdata, setChartdata]=useState({});
   const [transaction, setTransaction] = useState({
     pageno: "0",
     pagesize: "10",
@@ -23,6 +25,7 @@ function Filters() {
     profession: "null",
   });
   const fetchData = async () => {
+    console.log("fetch data");
     const url = getFilters(transaction);
     try {
       await fetch(url)
@@ -34,13 +37,18 @@ function Filters() {
       console.error("Error:", error);
     }
   };
+
   useEffect(() => {
+    console.log("use effect data");
     fetchData();
   }, [transaction.pageno]);
+
   const handleSubmit = async (event) => {
+    console.log("handle submit data");
     event.preventDefault();
     const url = getFilters(transaction);
-    console.log(url);
+    const charturl = getCharturl(transaction);
+    console.log(charturl);
     setTransaction((prevData) => ({
       ...prevData,
       pageno:"0",
@@ -55,8 +63,19 @@ function Filters() {
     } catch (error) {
       console.error("Error:", error);
     }
+    try {
+      console.log(transaction);
+      await fetch(charturl)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => setChartdata(data));
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
   const handlePrev = () => {
+    console.log("prev");
     const temp = parseInt(transaction.pageno);
     if (temp !== 0) {
       setTransaction((prevData) => ({
@@ -66,6 +85,7 @@ function Filters() {
     }
   };
   const handleNext = () => {
+    console.log("next");
     const temp = parseInt(transaction.pageno);
     setTransaction((prevData) => ({
       ...prevData,
@@ -120,20 +140,20 @@ function Filters() {
             })}
           </select>
         </div>
-        <div class="filterDivs" id="citydiv">
-          <p>City</p>
-          <select name="city" onChange={handleChange} id="city">
-            <option value="null">None</option>
-            {city.map((option, index) => {
-              return <option key={index}>{option}</option>;
-            })}
-          </select>
-        </div>
         <div class="filterDivs" id="statediv">
           <p>State</p>
           <select name="state" onChange={handleChange} id="state">
             <option value="null">None</option>
             {states.map((option, index) => {
+              return <option key={index}>{option}</option>;
+            })}
+          </select>
+        </div>
+        <div class="filterDivs" id="citydiv">
+          <p>City</p>
+          <select name="city" onChange={handleChange} id="city">
+            <option value="null">None</option>
+            {city.map((option, index) => {
               return <option key={index}>{option}</option>;
             })}
           </select>
@@ -176,6 +196,7 @@ function Filters() {
         <h5 id="pageNo">{parseInt(transaction.pageno) + 1}</h5>
         <button onClick={handleNext}><SkipNextIcon fontSize="large"/></button>
       </div>
+      <Charts data={chartdata}/>
     </div>
   );
 }
