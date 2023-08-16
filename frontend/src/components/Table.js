@@ -1,7 +1,6 @@
 import React from "react";
 
 function Table({transactions}){
-    console.log(transactions.transaction);
     const arr = transactions.transaction;
     return(
         <div id="transactions" class="table-responsive">
