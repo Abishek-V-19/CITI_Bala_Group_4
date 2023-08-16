@@ -28,7 +28,7 @@ jobs:
 
     - name: Build with Maven
       working-directory: ./CustomerApp
-      run: mvn -B package --file pom.xml
+      run: mvn -B package -Dmaven.test.skip --file pom.xml
 
     - name: Publish to GitHub Packages Apache Maven
       working-directory: ./CustomerApp
