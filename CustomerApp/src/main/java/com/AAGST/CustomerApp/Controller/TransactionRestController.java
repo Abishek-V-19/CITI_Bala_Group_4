@@ -29,7 +29,7 @@ public class TransactionRestController {
         TransactionSender query = this.getTransactionSenderObj(params);
         List<Transaction> found = this.transactionService.getTransactions(query);
         this.transactionService.getSummary(query);
-        System.out.println(found.toString());
+//        System.out.println(found.toString());
         return ResponseEntity.status(HttpStatus.OK).body(found);
     }
 
