@@ -44,7 +44,8 @@ function DeleteCreditCard() {
 
   return (
     <div>
-      <Box display="flex" justifyContent="center" alignItems="center">
+      <h2>Delete Credit Card</h2>
+      <Box display="flex" justifyContent="center" alignItems="center" mt={5}>
         <form onSubmit={handleSubmit}>
           <Stack spacing={3} direction="row" sx={{ width: 600 }}>
             <div>
