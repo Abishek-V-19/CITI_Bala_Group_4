@@ -24,6 +24,7 @@ function DeleteCreditCard() {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setRenderResponse(false);
     setLoader(true);
     try {
       console.log(putData);

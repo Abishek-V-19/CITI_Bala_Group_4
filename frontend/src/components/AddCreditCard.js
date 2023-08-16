@@ -4,7 +4,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 
 function AddCreditCard() {
   const [postData, setPostData] = useState({
@@ -25,6 +24,7 @@ function AddCreditCard() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setRenderResponse(false);
     setLoader(true);
     const url = "http://localhost:8080/CreditCard/add";
 
@@ -99,8 +99,7 @@ function AddCreditCard() {
           >
             <div>
               <h3>
-                Credit card added successfully{" "}
-                <CheckCircleOutlineRoundedIcon mt={1} color="success" />
+                Credit card added successfully.
               </h3>{" "}
             </div>
             <div>
@@ -125,7 +124,7 @@ function AddCreditCard() {
             sx={{ width: 400 }}
           >
             <div>
-              <h3>Please enter a proper customer id.</h3>{" "}
+              <h4>Please enter a proper customer id.</h4>
             </div>
           </Stack>
         </Box>
