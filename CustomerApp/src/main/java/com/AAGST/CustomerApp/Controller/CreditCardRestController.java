@@ -51,7 +51,8 @@ public class CreditCardRestController {
             return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");
         }
         catch(Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
+//            System.out.println(HttpStatus.NOT_ACCEPTABLE);
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Delete Not successful");
         }
     }
     @DeleteMapping("/delete/{cardNumber}/{customerId}")
