@@ -2,6 +2,7 @@ import React from "react";
 
 function Table({transactions}){
     const arr = transactions.transaction;
+    if(arr){
     return(
         <div id="transactions" class="table-responsive">
             <table id="items" class="table table-hover table-bordered table-info">
@@ -38,7 +39,9 @@ function Table({transactions}){
                     })}
                 </tbody>
     </table>
+    {(arr.length == 0) && <h3>No results found</h3>}
     </div>
     )
+    }
 }
 export default Table;

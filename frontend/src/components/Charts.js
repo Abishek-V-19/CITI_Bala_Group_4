@@ -84,7 +84,7 @@ function Charts({data}){
                 <option value="category">Category</option>
                 <option value="merchant">Merchant</option>
                 <option value="city">City</option>
-                <option value="State">State</option>
+                <option value="state">State</option>
                 <option value="profession">Profession</option>
             </select>
             <canvas id="ordersChart"></canvas>

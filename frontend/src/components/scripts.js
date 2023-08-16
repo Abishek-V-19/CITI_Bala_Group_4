@@ -12,8 +12,6 @@ export function getFilters(val){
 	// 	}
 	// }
 	// console.log(val.merchant);
-	url+="pageno="+val["pageno"];
-	url+="&size="+val["pagesize"];
 	url+="&gender="+ val["gender"];
 	url+="&category="+val["category"];
 	url+="&merchant="+val["merchant"];
