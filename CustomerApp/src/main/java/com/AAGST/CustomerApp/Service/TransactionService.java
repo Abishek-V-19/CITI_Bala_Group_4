@@ -26,7 +26,7 @@ public class TransactionService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    private MatchOperation getMatchOperationObj(TransactionSender recieved){
+    public MatchOperation getMatchOperationObj(TransactionSender recieved){
         List<Criteria> criteriaList = new ArrayList<>();
         if(!recieved.getGender().equals("null")){
             criteriaList.add(Criteria.where("gender").is(recieved.getGender()));

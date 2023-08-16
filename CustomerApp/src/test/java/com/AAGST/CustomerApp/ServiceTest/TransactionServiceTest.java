@@ -4,9 +4,7 @@ import com.AAGST.CustomerApp.Entity.CreditCard;
 import com.AAGST.CustomerApp.Entity.Transaction;
 import com.AAGST.CustomerApp.Service.CreditCardService;
 import com.AAGST.CustomerApp.Service.TransactionService;
-import com.AAGST.CustomerApp.utils.CreditCardDeleteSender;
-import com.AAGST.CustomerApp.utils.TransactionPerPage;
-import com.AAGST.CustomerApp.utils.TransactionSender;
+import com.AAGST.CustomerApp.utils.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.GroupOperation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
@@ -26,6 +27,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
 
 @SpringBootTest
 public class TransactionServiceTest {
@@ -43,6 +46,9 @@ public class TransactionServiceTest {
     TransactionSender ts1;
     Query q1,q2;
     int pageNo,size;
+
+    List<AggregateData> lad1;
+    AggregateData ad1,ad2;
 
     @BeforeEach
     public void beforeEach(){
@@ -69,6 +75,9 @@ public class TransactionServiceTest {
         q1.limit(20);
         q2 = transactionService.getQuery(new Query().with(pageable),ts1);
 
+        ad1 = new AggregateData("key1",123232.9);
+        ad2 = new AggregateData("key2",122.9);
+        lad1 = Arrays.asList(ad1,ad1);
 
     }
 
@@ -97,6 +106,36 @@ public class TransactionServiceTest {
         assertEquals(3,returnObj.getNumOfelements());
         assertEquals(5,returnObj.getPageSize());
 
+    }
+
+    @Test
+    public void getSummaryTest(){
+        MatchOperation filterStates = transactionService.getMatchOperationObj(ts1);
+        GroupOperation groupByGender = group("gender").sum("amt").as("amount");
+        GroupOperation groupByCategory = group("category").sum("amt").as("amount");
+        GroupOperation groupByMerchant = group("merchant").sum("amt").as("amount");
+        GroupOperation groupByCity = group("city").sum("amt").as("amount");
+        GroupOperation groupByState = group("state").sum("amt").as("amount");
+        GroupOperation groupByProfession = group("Job").sum("amt").as("amount");
+
+
+
+        when(mongoTemplate.getCollectionName(Transaction.class)).thenReturn("transaction");
+        when(mongoTemplate.aggregate(newAggregation(filterStates,groupByGender), "transaction", AggregateData.class).getMappedResults()).thenReturn(lad1);
+        when(mongoTemplate.aggregate(newAggregation(filterStates,groupByCategory), "transaction", AggregateData.class).getMappedResults()).thenReturn(lad1);
+        when(mongoTemplate.aggregate(newAggregation(filterStates,groupByMerchant), "transaction", AggregateData.class).getMappedResults()).thenReturn(lad1);
+        when(mongoTemplate.aggregate(newAggregation(filterStates,groupByCity), "transaction", AggregateData.class).getMappedResults()).thenReturn(lad1);
+        when(mongoTemplate.aggregate(newAggregation(filterStates,groupByState), "transaction", AggregateData.class).getMappedResults()).thenReturn(lad1);
+        when(mongoTemplate.aggregate(newAggregation(filterStates,groupByProfession), "transaction", AggregateData.class).getMappedResults()).thenReturn(lad1);
+
+        SummaryData summaryData = transactionService.getSummary(ts1);
+
+        assertEquals(lad1.toString(),summaryData.getGender().toString());
+//        assertEquals(lad1,summaryData.getCategory());
+//        assertEquals(lad1,summaryData.getCity());
+//        assertEquals(lad1,summaryData.getMerchant());
+//        assertEquals(lad1,summaryData.getProfession());
+//        assertEquals(lad1,summaryData.getState());
     }
 
     @AfterEach
