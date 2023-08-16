@@ -23,6 +23,7 @@ public class CreditCardRestController {
     @PostMapping("/add")
     public ResponseEntity<CreditCard> addCreditCard(@RequestBody CreditCardAddSender query)
     {   try {
+            System.out.println("cut id ------- "+query.getCustomerId());
             CreditCard newCreditCard = this.creditCardService.addCreditCard(query);
             return ResponseEntity.status(HttpStatus.OK).body(newCreditCard);
         }

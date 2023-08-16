@@ -46,7 +46,8 @@ public class TransactionService {
         if(!recieved.getProfession().equals("null")) {
             criteriaList.add(Criteria.where("Job").is(recieved.getProfession()));
         }
-        if(recieved.getTransactionAmountUpper() >= 0 && recieved.getTransactionAmountLower() >= 0 && recieved.getTransactionAmountLower() <= recieved.getTransactionAmountUpper()){
+
+        if(recieved.getTransactionAmountUpper() >= 0 && recieved.getTransactionAmountLower() >= 0){
             criteriaList.add(Criteria.where("amt").gte(recieved.getTransactionAmountLower()).lte(recieved.getTransactionAmountUpper()));
         }
         MatchOperation match =new MatchOperation(!criteriaList.isEmpty()?new Criteria().andOperator(criteriaList.toArray(new Criteria[criteriaList.size()])):new Criteria());
@@ -74,7 +75,7 @@ public class TransactionService {
         if(!recieved.getProfession().equals("null")) {
             query.addCriteria(Criteria.where("Job").is(recieved.getProfession()));
         }
-        if(recieved.getTransactionAmountUpper() >= 0 && recieved.getTransactionAmountLower() >= 0 && recieved.getTransactionAmountLower() < recieved.getTransactionAmountUpper()){
+        if(recieved.getTransactionAmountUpper() >= 0 && recieved.getTransactionAmountLower() >= 0){
             query.addCriteria(Criteria.where("amt").gte(recieved.getTransactionAmountLower()).lte(recieved.getTransactionAmountUpper()));
         }
 
