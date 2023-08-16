@@ -112,53 +112,52 @@ public class TransactionService {
     }
 
     public SummaryData getSummary(TransactionSender recieved){
-
+        System.out.println("hello --- ");
         SummaryData summaryData = new SummaryData();
 
         MatchOperation filterStates = this.getMatchOperationObj(recieved);
 
-//        String []items = {"gender","category","merchant","city","state","Job"};
-//        for(String item:items){
-//            GroupOperation groupByItem = group(item).sum("amt").as("amount");
-//            List<AggregateData> result;
-//            Aggregation aggregation = newAggregation(filterStates,groupByItem);
-//            result = mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class).getMappedResults();
-//
-//        }
         GroupOperation groupByGender = group("gender").sum("amt").as("amount");
         GroupOperation groupByCategory = group("category").sum("amt").as("amount");
         GroupOperation groupByMerchant = group("merchant").sum("amt").as("amount");
         GroupOperation groupByCity = group("city").sum("amt").as("amount");
         GroupOperation groupByState = group("state").sum("amt").as("amount");
         GroupOperation groupByProfession = group("Job").sum("amt").as("amount");
-
+//        System.out.println(filterStates);
 //        AggregationOperation limit = Aggregation.limit(20);
 
         List<AggregateData> result;
         Aggregation aggregation;
+        AggregationResults<AggregateData> aggList;
 
         aggregation = newAggregation(filterStates,groupByGender);
-        result =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class).getMappedResults();
+        aggList =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class);
+        result = aggList.getMappedResults();
         summaryData.setGender(result);
 
         aggregation = newAggregation(filterStates,groupByCategory);
-        result =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class).getMappedResults();
+        aggList =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class);
+        result = aggList.getMappedResults();
         summaryData.setCategory(result);
 
         aggregation = newAggregation(filterStates,groupByMerchant);
-        result =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class).getMappedResults();
+        aggList =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class);
+        result = aggList.getMappedResults();
         summaryData.setMerchant(result);
 
         aggregation = newAggregation(filterStates,groupByCity);
-        result =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class).getMappedResults();
+        aggList =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class);
+        result = aggList.getMappedResults();
         summaryData.setCity(result);
 
         aggregation = newAggregation(filterStates,groupByState);
-        result =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class).getMappedResults();
+        aggList =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class);
+        result = aggList.getMappedResults();
         summaryData.setState(result);
 
         aggregation = newAggregation(filterStates,groupByProfession);
-        result =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class).getMappedResults();
+        aggList =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class);
+        result = aggList.getMappedResults();
         summaryData.setProfession(result);
 
 

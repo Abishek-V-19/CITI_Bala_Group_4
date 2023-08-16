@@ -60,4 +60,19 @@ public class TransactionRestControllerTest {
         assertEquals(10,responseBody.getPageSize());
 
     }
+
+    @Test
+    public void getSummaryDataTest() throws URISyntaxException{
+
+        URI uri = new URI("http://localhost:8080/Transactions/summary");
+        ResponseEntity<TransactionPerPage> response = template.exchange(uri,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<TransactionPerPage>() {
+                });
+        TransactionPerPage responseBody = response.getBody();
+
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+
+    }
 }

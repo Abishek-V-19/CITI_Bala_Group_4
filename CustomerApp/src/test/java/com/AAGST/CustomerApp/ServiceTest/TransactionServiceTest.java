@@ -5,28 +5,35 @@ import com.AAGST.CustomerApp.Entity.Transaction;
 import com.AAGST.CustomerApp.Service.CreditCardService;
 import com.AAGST.CustomerApp.Service.TransactionService;
 import com.AAGST.CustomerApp.utils.*;
+import org.bson.Document;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.exceptions.misusing.InvalidUseOfMatchersException;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.mockito.ArgumentMatchers.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.mongodb.client.model.Filters.eq;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
 
@@ -35,6 +42,8 @@ public class TransactionServiceTest {
     // mocking the mongotemplate
     @Mock
     private MongoTemplate mongoTemplate;
+    @Mock
+    private AggregationResults<AggregateData> aggregationResultsMock;
 
     @InjectMocks
     private TransactionService transactionService;
@@ -63,8 +72,8 @@ public class TransactionServiceTest {
         collection = Arrays.asList(t1,t2,t3);
 
         ts1 = new TransactionSender();
-        ts1.setGender("M");
-        ts1.setState("OK");
+//        ts1.setGender("M");
+//        ts1.setState("OK");
 
         pageNo = 0;
         size = 5;
@@ -109,33 +118,23 @@ public class TransactionServiceTest {
     }
 
     @Test
-    public void getSummaryTest(){
-        MatchOperation filterStates = transactionService.getMatchOperationObj(ts1);
-        GroupOperation groupByGender = group("gender").sum("amt").as("amount");
-        GroupOperation groupByCategory = group("category").sum("amt").as("amount");
-        GroupOperation groupByMerchant = group("merchant").sum("amt").as("amount");
-        GroupOperation groupByCity = group("city").sum("amt").as("amount");
-        GroupOperation groupByState = group("state").sum("amt").as("amount");
-        GroupOperation groupByProfession = group("Job").sum("amt").as("amount");
+    public void getSummaryTest() {
 
 
+        doReturn(aggregationResultsMock)
+                .when(mongoTemplate)
+                .aggregate(Mockito.nullable(Aggregation.class), Mockito.nullable(String.class), Mockito.<Class<?>> any());
+        when(aggregationResultsMock.getMappedResults()).thenReturn(lad1);
 
-        when(mongoTemplate.getCollectionName(Transaction.class)).thenReturn("transaction");
-        when(mongoTemplate.aggregate(newAggregation(filterStates,groupByGender), "transaction", AggregateData.class).getMappedResults()).thenReturn(lad1);
-        when(mongoTemplate.aggregate(newAggregation(filterStates,groupByCategory), "transaction", AggregateData.class).getMappedResults()).thenReturn(lad1);
-        when(mongoTemplate.aggregate(newAggregation(filterStates,groupByMerchant), "transaction", AggregateData.class).getMappedResults()).thenReturn(lad1);
-        when(mongoTemplate.aggregate(newAggregation(filterStates,groupByCity), "transaction", AggregateData.class).getMappedResults()).thenReturn(lad1);
-        when(mongoTemplate.aggregate(newAggregation(filterStates,groupByState), "transaction", AggregateData.class).getMappedResults()).thenReturn(lad1);
-        when(mongoTemplate.aggregate(newAggregation(filterStates,groupByProfession), "transaction", AggregateData.class).getMappedResults()).thenReturn(lad1);
 
         SummaryData summaryData = transactionService.getSummary(ts1);
 
-        assertEquals(lad1.toString(),summaryData.getGender().toString());
-//        assertEquals(lad1,summaryData.getCategory());
-//        assertEquals(lad1,summaryData.getCity());
-//        assertEquals(lad1,summaryData.getMerchant());
-//        assertEquals(lad1,summaryData.getProfession());
-//        assertEquals(lad1,summaryData.getState());
+        assertEquals(lad1,summaryData.getGender());
+        assertEquals(lad1,summaryData.getCategory());
+        assertEquals(lad1,summaryData.getState());
+        assertEquals(lad1,summaryData.getCity());
+        assertEquals(lad1,summaryData.getMerchant());
+        assertEquals(lad1,summaryData.getProfession());
     }
 
     @AfterEach
