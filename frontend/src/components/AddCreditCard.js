@@ -99,9 +99,7 @@ function AddCreditCard() {
             sx={{ width: 400 }}
           >
             <div>
-              <h3>
-                Credit card added successfully.
-              </h3>{" "}
+              <h3>Credit card added successfully.</h3>{" "}
             </div>
             <div>
               <b>Customer id:</b> {renderData.customerId}
