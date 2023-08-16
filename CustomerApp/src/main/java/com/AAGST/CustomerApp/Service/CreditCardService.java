@@ -49,7 +49,7 @@ public class CreditCardService {
         if(!this.mongoTemplate.exists(query, Customer.class)){
             throw new CustomerNotExistException("Customer Doesnot exist - Please create customer");
         }
-        System.out.println(newCreditCard.toString());
+//        System.out.println(newCreditCard.toString());
         this.mongoTemplate.save(newCreditCard);
         return newCreditCard;
     }
@@ -65,7 +65,7 @@ public class CreditCardService {
 
         CreditCard found = mongoTemplate.findOne(query,CreditCard.class);
         mongoTemplate.remove(found);
-        System.out.println(found.toString());
+//        System.out.println(found.toString());
         return found;
     }
     public CreditCard updateCreditCard(CreditCardDeleteSender recieved) throws CardNotExistException {
@@ -80,7 +80,7 @@ public class CreditCardService {
         CreditCard found = mongoTemplate.findOne(query,CreditCard.class);
         found.setStatus("Cancelled");
         mongoTemplate.save(found);
-        System.out.println(found.toString());
+//        System.out.println(found.toString());
         return found;
 
     }
