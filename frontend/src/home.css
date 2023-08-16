@@ -1,9 +1,18 @@
-.landing-page{
-    background-color: #21D4FD;
-    background-image: url('./assets/banking-capital--markets-1050x650.jpg');
-    height: 100vh;
-    width: 100vw;
-    background-repeat: no-repeat;
-    background-size: cover; 
-    color:white;
+.landing-page {
+  background-color: #21d4fd;
+  background-image: url("./assets/banking-capital--markets-1050x650.jpg");
+  height: 90vh;
+  width: 100vw;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  font-size: 4rem !important;
+  padding-bottom: 0.5rem;
 }
