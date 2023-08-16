@@ -1,10 +1,11 @@
 import "./App.css";
 import AppRouter from "./AppRouter";
+import NavBar from './components/NavBar'
 
 function App() {
   return (
     <div className="App">
-      <h1>Credit card management system</h1>
+      <NavBar />
       <AppRouter />
     </div>
   );
