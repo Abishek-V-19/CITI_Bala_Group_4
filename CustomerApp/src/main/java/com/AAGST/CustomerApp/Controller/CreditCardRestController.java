@@ -77,5 +77,11 @@ public class CreditCardRestController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<List<CreditCard>> getCreditCards(@RequestParam long customerId){
+        List<CreditCard> found = this.creditCardService.getCreditCardDetails(customerId);
+        return ResponseEntity.status(HttpStatus.OK).body(found);
+    }
+
 
 }

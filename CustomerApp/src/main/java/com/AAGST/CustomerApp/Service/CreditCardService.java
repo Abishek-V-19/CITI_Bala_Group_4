@@ -1,12 +1,9 @@
 package com.AAGST.CustomerApp.Service;
 
-import com.AAGST.CustomerApp.Controller.CreditCardRestController;
 import com.AAGST.CustomerApp.Entity.CreditCard;
 import com.AAGST.CustomerApp.Entity.Customer;
 import com.AAGST.CustomerApp.Exception.CardNotExistException;
 import com.AAGST.CustomerApp.Exception.CustomerNotExistException;
-import com.AAGST.CustomerApp.Repository.CreditCardRepository;
-import com.AAGST.CustomerApp.Repository.CustomerRepository;
 import com.AAGST.CustomerApp.utils.CreditCardAddSender;
 import com.AAGST.CustomerApp.utils.CreditCardDeleteSender;
 import org.bson.types.ObjectId;
@@ -22,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class CreditCardService {
@@ -102,6 +100,14 @@ public class CreditCardService {
 //        System.out.println(found.toString());
         return found;
 
+    }
+
+    public List<CreditCard> getCreditCardDetails(long customerId){
+        Query query = new Query(Criteria.where("customerId").is(customerId));
+        query.addCriteria(Criteria.where("status").is("Active"));
+
+        List<CreditCard> found = mongoTemplate.find(query,CreditCard.class);
+        return found;
     }
 
 }

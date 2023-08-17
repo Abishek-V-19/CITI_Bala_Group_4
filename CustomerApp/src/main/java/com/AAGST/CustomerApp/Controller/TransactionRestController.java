@@ -57,7 +57,6 @@ public class TransactionRestController {
 
         return ResponseEntity.status(HttpStatus.OK).body(summaryData);
     }
-
     private TransactionSender getTransactionSenderObj(Map<String, String> params){
         paramsPrinter(params);
         TransactionSender query = new TransactionSender();
