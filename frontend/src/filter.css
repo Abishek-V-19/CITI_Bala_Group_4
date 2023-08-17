@@ -84,3 +84,18 @@ select,input{
 #items{
     margin: 0;
 }
+#charts{
+  display: flex;
+  justify-content: space-around ;
+  padding:5px;
+  overflow: hidden;
+  width: 100%;
+  border:1px var(--primary) solid;
+  border-radius: 8px;
+  /* margin: 0% 1% 0% 1%;  */
+  background-color: var(--secondary);
+  color: var(--primary);
+}
+#chartOptions{
+  width: 50%;
+}
