@@ -1,6 +1,8 @@
 package com.AAGST.CustomerApp.ControllerTest;
 import com.AAGST.CustomerApp.Entity.CreditCard;
+import com.AAGST.CustomerApp.Entity.Transaction;
 import com.AAGST.CustomerApp.utils.CreditCardAddSender;
+import com.AAGST.CustomerApp.utils.CreditCardDetailsSender;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +28,6 @@ public class CreditCardRestControllerTest {
     CreditCardAddSender c1;
     @BeforeEach
     public void setUp(){
-        template=new TestRestTemplate();
         c1 = new CreditCardAddSender(127);
     }
 
@@ -42,7 +43,7 @@ public class CreditCardRestControllerTest {
     @Test
     public void updateCreditCardTest1() throws URISyntaxException{
 
-        URI uri = new URI("http://localhost:8080/CreditCard/delete/64dd9f5d04c226269e000064/127/Brittany/Mccarthy");
+        URI uri = new URI("http://localhost:8080/CreditCard/delete/64de499989f853638d000064/1");
         ResponseEntity<String> response = template.exchange(uri,
                 HttpMethod.PUT,
                 null,
@@ -55,7 +56,7 @@ public class CreditCardRestControllerTest {
     @Test
     public void updateCreditCardTest2() throws URISyntaxException{
 
-        URI uri = new URI("http://localhost:8080/CreditCard/delete/1212/2/sdd/dsds");
+        URI uri = new URI("http://localhost:8080/CreditCard/delete/1212/2");
         ResponseEntity<String> response = template.exchange(uri,
                 HttpMethod.PUT,
                 null,
@@ -65,9 +66,22 @@ public class CreditCardRestControllerTest {
         assertEquals(HttpStatus.NOT_ACCEPTABLE,response.getStatusCode());
     }
 
+    @Test
+    public void getCreditCardsTest() throws URISyntaxException {
+
+        URI uri = new URI("http://localhost:8080/CreditCard?customerId=1");
+        ResponseEntity<CreditCardDetailsSender> response = template.exchange(uri,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<CreditCardDetailsSender>() {
+                });
+        CreditCardDetailsSender responseBody = response.getBody();
+
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+    }
+
     @AfterEach
     public void destroy(){
-        template = null;
         c1 = null;
     }
 }

@@ -187,7 +187,7 @@ function DeleteCreditCard() {
             sx={{ width: 400 }}
           >
             <div>
-              <h3>Please enter valid customer details.</h3>{" "}
+              <h3>Please enter valid Credit Card Number.</h3>{" "}
             </div>
           </Stack>
         </Box>

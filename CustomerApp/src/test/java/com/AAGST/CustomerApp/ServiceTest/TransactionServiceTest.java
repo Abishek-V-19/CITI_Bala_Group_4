@@ -17,6 +17,7 @@ import org.mockito.exceptions.misusing.InvalidUseOfMatchersException;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
@@ -84,9 +85,9 @@ public class TransactionServiceTest {
         q1.limit(20);
         q2 = transactionService.getQuery(new Query().with(pageable),ts1);
 
-        ad1 = new AggregateData("key1",123232.9);
-        ad2 = new AggregateData("key2",122.9);
-        lad1 = Arrays.asList(ad1,ad1);
+        ad1 = new AggregateData("key1",123232.9,23);
+        ad2 = new AggregateData("key2",122.9,23);
+        lad1 = Arrays.asList(ad1,ad2);
 
     }
 

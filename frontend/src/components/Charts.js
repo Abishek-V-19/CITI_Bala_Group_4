@@ -5,6 +5,7 @@ import ChartValues from "./ChartValues";
 let myChart = null;
 function Charts({data}){
     console.log(data);
+    const totalRecords = data.totalRecords == null?0:data.totalRecords;
     const [chart,setChart]=useState("");
     const clear =()=>{
         myChart.data.labels=[];
@@ -13,10 +14,10 @@ function Charts({data}){
     };
     const updateChart =(event)=>{
         const {value} = event.target;
-        if(value =="null"){
+        if(value ==="null"){
             clear();
         }
-        else if(Object.keys(data).length != 0){
+        else if(Object.keys(data).length !== 0){
             const arr = data[value];
             setChart(value);
             console.log(arr);
@@ -50,7 +51,7 @@ function Charts({data}){
             })
             }
     }
-        if(Object.keys(data).length != 0){
+        if(Object.keys(data).length !== 0){
             const arr = data.gender;
             let labels = [];
             let values = [];
@@ -84,6 +85,9 @@ function Charts({data}){
     }
 
     return(
+        <div>
+        <br></br>
+        <h3>Total Records - {totalRecords}</h3> 
         <div class="chart-container">
             <br></br>
             <div id="charts">
@@ -100,8 +104,11 @@ function Charts({data}){
             </div>
             <canvas id="ordersChart"></canvas>
             {chart &&
-            <h3>{chart}</h3>}
+            <h3>{chart}</h3>
+            }
+            
             <ChartValues prop={data[chart]}/>
+        </div>
         </div>
     )
 }

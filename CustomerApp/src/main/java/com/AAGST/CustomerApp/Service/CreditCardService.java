@@ -95,6 +95,8 @@ public class CreditCardService {
     }
 
     public CreditCardDetailsSender getCreditCardDetails(long customerId){
+        LOGGER.debug("*************SERVICE - CreditCardService - FUNCTION NAME - getCreditCardDetails()*************");
+
         Query query = new Query(Criteria.where("customerId").is(customerId));
 //        query.addCriteria(Criteria.where("status").is("Active"));
 
@@ -102,7 +104,7 @@ public class CreditCardService {
         CreditCardDetailsSender data = new CreditCardDetailsSender();
         data.setCreditCards(found);
 
-        Query query1 = new Query(Criteria.where("customerId").is(customerId));
+        Query query1 = new Query(Criteria.where("_id").is(customerId));
         Customer customer = mongoTemplate.findOne(query1,Customer.class);
         data.setCustomer(customer);
         return data;

@@ -83,7 +83,7 @@ public class TransactionService {
             query.addCriteria(Criteria.where("amt").gte(recieved.getTransactionAmountLower()).lte(recieved.getTransactionAmountUpper()));
         }
 
-        return query;
+        return query.with(Sort.by(Sort.Direction.DESC, "amt"));
     }
     public List<Transaction> getTransactions(TransactionSender recieved){
         LOGGER.info("*************SERVICE - TransactionService FUNCTION NAME - getTransactions()*************");
@@ -123,12 +123,12 @@ public class TransactionService {
 
         MatchOperation filterStates = this.getMatchOperationObj(recieved);
 
-        GroupOperation groupByGender = group("gender").sum("amt").as("amount");
-        GroupOperation groupByCategory = group("category").sum("amt").as("amount");
-        GroupOperation groupByMerchant = group("merchant").sum("amt").as("amount");
-        GroupOperation groupByCity = group("city").sum("amt").as("amount");
-        GroupOperation groupByState = group("state").sum("amt").as("amount");
-        GroupOperation groupByProfession = group("Job").sum("amt").as("amount");
+        GroupOperation groupByGender = group("gender").sum("amt").as("amount").count().as("record_count");
+        GroupOperation groupByCategory = group("category").sum("amt").as("amount").count().as("record_count");
+        GroupOperation groupByMerchant = group("merchant").sum("amt").as("amount").count().as("record_count");
+        GroupOperation groupByCity = group("city").sum("amt").as("amount").count().as("record_count");
+        GroupOperation groupByState = group("state").sum("amt").as("amount").count().as("record_count");
+        GroupOperation groupByProfession = group("Job").sum("amt").as("amount").count().as("record_count");
 
         SortOperation sortDesc = sort(Sort.by(Sort.Direction.DESC,"amount"));
 //        System.out.println(filterStates);
@@ -167,6 +167,13 @@ public class TransactionService {
         aggList =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class);
         result = aggList.getMappedResults();
         summaryData.setProfession(result);
+
+        long totalRecords = 0;
+        for(AggregateData a:summaryData.getGender()){
+            totalRecords += a.getRecord_count();
+        }
+
+        summaryData.setTotalRecords(totalRecords);
 
 
 

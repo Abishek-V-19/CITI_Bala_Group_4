@@ -10,13 +10,16 @@ public class SummaryData {
     private List<AggregateData> state;
     private List<AggregateData> profession;
 
-    public SummaryData(List<AggregateData> gender, List<AggregateData> category, List<AggregateData> merchant, List<AggregateData> city, List<AggregateData> state, List<AggregateData> profession) {
+    private long totalRecords;
+
+    public SummaryData(List<AggregateData> gender, List<AggregateData> category, List<AggregateData> merchant, List<AggregateData> city, List<AggregateData> state, List<AggregateData> profession,long totalRecords) {
         this.gender = gender;
         this.category = category;
         this.merchant = merchant;
         this.city = city;
         this.state = state;
         this.profession = profession;
+        this.totalRecords = totalRecords;
     }
 
     public SummaryData() {
@@ -70,6 +73,14 @@ public class SummaryData {
         this.profession = profession;
     }
 
+    public long getTotalRecords() {
+        return totalRecords;
+    }
+
+    public void setTotalRecords(long totalRecords) {
+        this.totalRecords = totalRecords;
+    }
+
     @Override
     public String toString() {
         return "SummaryData{" +
@@ -79,6 +90,7 @@ public class SummaryData {
                 ", city=" + city +
                 ", state=" + state +
                 ", profession=" + profession +
+                ", totalRecords=" + totalRecords +
                 '}';
     }
 }

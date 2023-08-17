@@ -80,6 +80,7 @@ public class CreditCardRestController {
 
     @GetMapping
     public ResponseEntity<CreditCardDetailsSender> getCreditCards(@RequestParam long customerId){
+        LOGGER.debug("*************GET METHOD - FUNCTION NAME - getCreditCards()*************");
         CreditCardDetailsSender found = this.creditCardService.getCreditCardDetails(customerId);
         return ResponseEntity.status(HttpStatus.OK).body(found);
     }
