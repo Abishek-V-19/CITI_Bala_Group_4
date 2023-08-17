@@ -4,6 +4,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import CustomerDetailsDisplay from './CustomerDetailsDisplay';
+import TableNewCreditCard from './TableNewCreditCard';
 
 function AddCreditCard() {
   const [postData, setPostData] = useState({
@@ -25,7 +27,7 @@ function AddCreditCard() {
   };
   const handleSubmit2 = async (event) => {
     event.preventDefault();
-    const url = `http://localhost:8080/customer?customerId=${postData.customerId}`;
+    const url = `http://localhost:8080/customer?customerId=${postData.customerId}&customerId=${postData.description}`;
     setRenderResponse(false);
     setRenderError(false);
     try {
@@ -112,20 +114,43 @@ function AddCreditCard() {
       {customerFound === 1 ? (
         <Box mt={4} display="flex" justifyContent="center" alignItems="center">
           <Stack
-            spacing={1}
+            spacing={3}
             direction="column"
             justifyContent="center"
             alignItems="center"
             sx={{ width: 400 }}
           >
-            <div>Customer found with id {customerDetails.customerId}</div>
+          {/* //Sai sandhya code */}
+            {/* <div>Customer found with id {customerDetails.customerId}</div>
             <div>
               Name: {customerDetails.firstName} {customerDetails.lastName}
-            </div>
+            </div> */}
+            
+            <div><CustomerDetailsDisplay customer={customerDetails}></CustomerDetailsDisplay></div>
             <div>Click the add button to add a new credit card.</div>
+            
+            
             <form onSubmit={handleSubmit}>
+            <Stack
+            spacing={3}
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            sx={{ width: 400 }}
+          >
+            <div>
+              <TextField
+                type="text"
+                label="Credit Card Type"
+                name="description"
+                value={postData.description}
+                onChange={handleInputChange}
+                sx={{ width: "90%" }}
+                required
+              />
+            </div>
               <div>
-              
+
                 <Button
                   variant="contained"
                   size="large"
@@ -135,7 +160,9 @@ function AddCreditCard() {
                   ADD
                 </Button>
               </div>
+              </Stack>
             </form>
+            
           </Stack>
         </Box>
       ) : customerFound === 2 ? (
@@ -158,10 +185,12 @@ function AddCreditCard() {
             alignItems="center"
             sx={{ width: 400 }}
           >
-            <div>
+          <div>
               <h3>Credit card added successfully.</h3>{" "}
             </div>
-            <div>
+          <div><TableNewCreditCard customer={renderData}></TableNewCreditCard></div>
+            {/* //sai sandhya code */}
+            {/* <div>
               <b>Customer id:</b> {renderData.customerId}
             </div>
             <div>
@@ -169,7 +198,7 @@ function AddCreditCard() {
             </div>
             <div>
               <b>Status:</b> <span>{renderData.status}</span>{" "}
-            </div>
+            </div> */}
           </Stack>
         </Box>
       )}

@@ -4,8 +4,17 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import CustomerDetailsDisplay from './CustomerDetailsDisplay';
 
 import axios from "axios";
+import TableAddCreditCard from "./TableAddCreditCard";
+
+
 
 function DeleteCreditCard() {
   const [putData, setPutData] = useState({
@@ -68,7 +77,7 @@ function DeleteCreditCard() {
 
   return (
     <div>
-      <h2>Delete Credit Card</h2>
+      <h2>View Credit Card</h2>
       <Box display="flex" justifyContent="center" alignItems="center" mt={5}>
         <form onSubmit={handleSubmit2}>
           <Stack spacing={3} direction="column" sx={{ width: 400 }}>
@@ -83,6 +92,7 @@ function DeleteCreditCard() {
                 required
               />
             </div>
+            
             <div>
               <Button
                 type="submit"
@@ -98,18 +108,22 @@ function DeleteCreditCard() {
       {customerFound === 1 ? (
         <Box mt={4} display="flex" justifyContent="center" alignItems="center">
           <Stack
-            spacing={1}
+            spacing={3}
             direction="column"
             justifyContent="center"
             alignItems="center"
-            sx={{ width: 400 }}
+            sx={{ width: 500}}
           >
-            <div>Customer found with id {customerId}</div>
-
-            {customerDetails.map((card, index) => {
+            <CustomerDetailsDisplay customer={customerDetails.customer}></CustomerDetailsDisplay>
+            <Stack spacing={3} direction="column" sx={{ width: 500 }}>
+            <TableAddCreditCard arr = {customerDetails.creditCards} customer = {customerDetails.customer}></TableAddCreditCard>
+            </Stack>
+            {/* // saisandhyas code */}
+            {/* {customerDetails.map((card, index) => {
               return <div key={index}>{card.cardNumber}</div>;
-            })}
+            })} */}
             <form onSubmit={handleSubmit}>
+            <Stack spacing={3} direction="column" sx={{ width: 400 }}>
               <div>
                 <TextField
                   type="text"
@@ -129,9 +143,10 @@ function DeleteCreditCard() {
                   class="btn btn-outline-primary"
                   type="submit"
                 >
-                  DELETE
+                  CANCEL CREDIT CARD
                 </Button>
               </div>
+              </Stack>
             </form>
           </Stack>
         </Box>
@@ -157,7 +172,7 @@ function DeleteCreditCard() {
             sx={{ width: 400 }}
           >
             <div>
-              <h3>Card is deleted successfully.</h3>{" "}
+              <h3>Card Cancelled successfully.</h3>{" "}
             </div>
           </Stack>
         </Box>

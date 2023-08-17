@@ -6,6 +6,7 @@ import com.AAGST.CustomerApp.Exception.CardNotExistException;
 import com.AAGST.CustomerApp.Exception.CustomerNotExistException;
 import com.AAGST.CustomerApp.utils.CreditCardAddSender;
 import com.AAGST.CustomerApp.utils.CreditCardDeleteSender;
+import com.AAGST.CustomerApp.utils.CreditCardDetailsSender;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,7 @@ public class CreditCardService {
         newCreditCard.setCreationTime(curDateTime());
         newCreditCard.setCustomerId(recieved.getCustomerId());
         newCreditCard.setStatus("Active");
-        newCreditCard.setDescription("default");
+        newCreditCard.setDescription(recieved.getDescription());
 
         return addCreditCardWorker(newCreditCard);
     }
@@ -93,12 +94,18 @@ public class CreditCardService {
 
     }
 
-    public List<CreditCard> getCreditCardDetails(long customerId){
+    public CreditCardDetailsSender getCreditCardDetails(long customerId){
         Query query = new Query(Criteria.where("customerId").is(customerId));
-        query.addCriteria(Criteria.where("status").is("Active"));
+//        query.addCriteria(Criteria.where("status").is("Active"));
 
         List<CreditCard> found = mongoTemplate.find(query,CreditCard.class);
-        return found;
+        CreditCardDetailsSender data = new CreditCardDetailsSender();
+        data.setCreditCards(found);
+
+        Query query1 = new Query(Criteria.where("customerId").is(customerId));
+        Customer customer = mongoTemplate.findOne(query1,Customer.class);
+        data.setCustomer(customer);
+        return data;
     }
 
 }

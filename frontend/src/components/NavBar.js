@@ -106,7 +106,7 @@ function ResponsiveAppBar() {
               </MenuItem>
               <MenuItem key="delete" onClick={handleCloseNavMenu}>
                 <Link to="/delete">
-                  <Typography textAlign="center">Delete credit card</Typography>
+                  <Typography textAlign="center">View credit card</Typography>
                 </Link>
               </MenuItem>
               <MenuItem key="addCustomer" onClick={handleCloseNavMenu}>
@@ -164,7 +164,7 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                DELETE CREDIT CARD
+                VIEW CREDIT CARD
               </Button>
             </Link>
             <Link to="/AddCustomer" style={{ textDecoration: "none" }}>

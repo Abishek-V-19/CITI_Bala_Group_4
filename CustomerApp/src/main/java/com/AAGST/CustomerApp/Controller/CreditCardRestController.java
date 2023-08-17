@@ -5,6 +5,7 @@ import com.AAGST.CustomerApp.Entity.Transaction;
 import com.AAGST.CustomerApp.Service.CreditCardService;
 import com.AAGST.CustomerApp.utils.CreditCardAddSender;
 import com.AAGST.CustomerApp.utils.CreditCardDeleteSender;
+import com.AAGST.CustomerApp.utils.CreditCardDetailsSender;
 import com.AAGST.CustomerApp.utils.TransactionSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,8 +79,8 @@ public class CreditCardRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CreditCard>> getCreditCards(@RequestParam long customerId){
-        List<CreditCard> found = this.creditCardService.getCreditCardDetails(customerId);
+    public ResponseEntity<CreditCardDetailsSender> getCreditCards(@RequestParam long customerId){
+        CreditCardDetailsSender found = this.creditCardService.getCreditCardDetails(customerId);
         return ResponseEntity.status(HttpStatus.OK).body(found);
     }
 
