@@ -1,5 +1,6 @@
 HELP.md
-target/
+CustomerApp/target
+frontend/node_modules
 !CustomerApp/.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 
