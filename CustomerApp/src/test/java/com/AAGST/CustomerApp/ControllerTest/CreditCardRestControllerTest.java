@@ -27,7 +27,7 @@ public class CreditCardRestControllerTest {
     @BeforeEach
     public void setUp(){
         template=new TestRestTemplate();
-        c1 = new CreditCardAddSender(127,"Brittany","Mccarthy");
+        c1 = new CreditCardAddSender(127);
     }
 
     @Test

@@ -64,7 +64,7 @@ public class CreditCardServiceTest {
         when(mongoTemplate.save(c1)).thenReturn(c1);
         when(mongoTemplate.exists(q1, Customer.class)).thenReturn(true);
         try {
-            CreditCard returnObj = creditCardService.addCreditCardWorker(c1,firstName,lastName);
+            CreditCard returnObj = creditCardService.addCreditCardWorker(c1);
             assertEquals(c1.toString(),returnObj.toString());
         }
         catch(Exception e){
@@ -79,7 +79,7 @@ public class CreditCardServiceTest {
         when(mongoTemplate.save(c2)).thenReturn(c2);
         when(mongoTemplate.exists(q1, Customer.class)).thenReturn(false);
         try {
-            CreditCard returnObj = creditCardService.addCreditCardWorker(c1,firstName,lastName);
+            CreditCard returnObj = creditCardService.addCreditCardWorker(c1);
             assertEquals(c2.toString(),returnObj.toString());
         }
         catch(Exception e){

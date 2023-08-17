@@ -49,7 +49,7 @@ public class CreditCardRestController {
 //        }
 //    }
     @PutMapping("/delete/{cardNumber}/{customerId}")
-    public ResponseEntity<String> updateCreditCardStatus(@PathVariable String cardNumber,@PathVariable long customerId,@PathVariable String firstName,@PathVariable String lastName)
+    public ResponseEntity<String> updateCreditCardStatus(@PathVariable String cardNumber,@PathVariable long customerId)
     {
         try {
             LOGGER.debug("*************PUT METHOD - FUNCTION NAME - updateCreditCardStatus()*************");
@@ -63,7 +63,7 @@ public class CreditCardRestController {
         }
     }
     @DeleteMapping("/delete/{cardNumber}/{customerId}")
-    public ResponseEntity<String> deleteCreditCard(@PathVariable String cardNumber,@PathVariable long customerId,@PathVariable String firstName,@PathVariable String lastName)
+    public ResponseEntity<String> deleteCreditCard(@PathVariable String cardNumber,@PathVariable long customerId)
     {
         try {
             LOGGER.debug("*************PUT METHOD - FUNCTION NAME - deleteCreditCard()*************");
