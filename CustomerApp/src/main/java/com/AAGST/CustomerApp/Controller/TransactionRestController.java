@@ -5,6 +5,8 @@ import com.AAGST.CustomerApp.Service.TransactionService;
 import com.AAGST.CustomerApp.utils.SummaryData;
 import com.AAGST.CustomerApp.utils.TransactionPerPage;
 import com.AAGST.CustomerApp.utils.TransactionSender;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +19,18 @@ import java.util.Map;
 @CrossOrigin
 @RequestMapping("/Transactions")
 public class TransactionRestController {
+
     @Autowired
     TransactionService transactionService;
     // http://localhost:8080
     // https://localhost:8080/swagger-ui/index.html
+    private final static Logger LOGGER  = LoggerFactory.getLogger(TransactionRestController.class);
 
 
     @GetMapping
     public ResponseEntity<List<Transaction>> getTransaction(@RequestParam Map<String, String> params)
     {
+        LOGGER.debug("*************ROUTE CALLED - /Transactions - GET METHOD - FUNCTION NAME - getTransaction()*************");
         TransactionSender query = this.getTransactionSenderObj(params);
         List<Transaction> found = this.transactionService.getTransactions(query);
         this.transactionService.getSummary(query);
@@ -37,6 +42,7 @@ public class TransactionRestController {
     public ResponseEntity<TransactionPerPage>  getTransactionPerPageResponse(@RequestParam(required = false, defaultValue = "0") int pageno,
                                                                                    @RequestParam(required = false, defaultValue = "10") int size, @RequestParam Map<String, String> params)
     {
+        LOGGER.debug("*************ROUTE CALLED - /Transactions/pages - GET METHOD - FUNCTION NAME - getTransactionPerPageResponse()*************");
         TransactionSender query = this.getTransactionSenderObj(params);
        TransactionPerPage page = this.transactionService.getTransactionByPagination(pageno,size,query);
        paramsPrinter(params);
@@ -45,6 +51,7 @@ public class TransactionRestController {
     @GetMapping("/summary")
     public ResponseEntity<SummaryData> getSummaryData(@RequestParam Map<String, String> params)
     {
+        LOGGER.debug("*************ROUTE CALLED - /Transactions/summary - GET METHOD - FUNCTION NAME - getSummaryData()*************");
         TransactionSender query = this.getTransactionSenderObj(params);
         SummaryData summaryData = this.transactionService.getSummary(query);
 

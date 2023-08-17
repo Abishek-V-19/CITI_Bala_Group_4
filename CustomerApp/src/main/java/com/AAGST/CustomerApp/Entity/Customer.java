@@ -18,13 +18,13 @@ public class Customer {
     private String lastName;
     private String gender;
     private String job;
-    private Date dob;
+    private String dob;
 
     public Customer(){
 
     }
 
-    public Customer(long customerId, String firstName, String lastName, String gender, String job, Date dob) {
+    public Customer(long customerId, String firstName, String lastName, String gender, String job, String dob) {
         this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -73,11 +73,11 @@ public class Customer {
         this.job = job;
     }
 
-    public Date getDob() {
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 
