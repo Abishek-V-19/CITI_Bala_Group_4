@@ -12,6 +12,8 @@ export function getFilters(val){
 	// 	}
 	// }
 	// console.log(val.merchant);
+	url+="pageno="+val["pageno"];
+	url+="&size="+val["pagesize"];
 	url+="&gender="+ val["gender"];
 	url+="&category="+val["category"];
 	url+="&merchant="+val["merchant"];
@@ -25,8 +27,6 @@ export function getFilters(val){
 export function getCharturl(val){
 	
 	let url = "http://localhost:8080/Transactions/summary?";
-	url+="pageno="+val["pageno"];
-	url+="&size="+val["pagesize"];
 	url+="&gender="+ val["gender"];
 	url+="&category="+val["category"];
 	url+="&merchant="+val["merchant"];

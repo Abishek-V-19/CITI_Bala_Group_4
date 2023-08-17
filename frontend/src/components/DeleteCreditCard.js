@@ -9,8 +9,8 @@ import axios from "axios";
 
 function DeleteCreditCard() {
   const [putData, setPutData] = useState({
-    customerId: 0,
-    cardNumber: "cardnumberhere",
+    // customerId: 0,
+    // cardNumber: "cardnumberhere",
   });
   const [loader, setLoader] = useState(false);
   const [renderResponse, setRenderResponse] = useState(false);
@@ -47,7 +47,7 @@ function DeleteCreditCard() {
       <h2>Delete Credit Card</h2>
       <Box display="flex" justifyContent="center" alignItems="center" mt={5}>
         <form onSubmit={handleSubmit}>
-          <Stack spacing={3} direction="row" sx={{ width: 600 }}>
+          <Stack spacing={3} direction="column" sx={{ width: 600 }}>
             <div>
               <TextField
                 type="number"
@@ -55,6 +55,7 @@ function DeleteCreditCard() {
                 name="customerId"
                 value={putData.customerId}
                 onChange={handleInputChange}
+                required
               />
             </div>
             <div>
@@ -64,12 +65,34 @@ function DeleteCreditCard() {
                 name="cardNumber"
                 value={putData.cardNumber}
                 onChange={handleInputChange}
+                required
               />
             </div>
             <div>
-              <Button type="submit" variant="contained" color="error">
+              <TextField
+                type="text"
+                label="First Name"
+                name="firstName"
+                value={putData.firstName}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div>
+              <TextField
+                type="text"
+                label="Last Name"
+                name="lastName"
+                value={putData.lastName}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div>
+              <Button type="submit" variant="contained" class="btn btn-outline-primary">
                 DELETE
               </Button>
+              
             </div>
           </Stack>
         </form>
@@ -104,7 +127,7 @@ function DeleteCreditCard() {
             sx={{ width: 600 }}
           >
             <div>
-              <h3>Please enter a proper customer id and card number.</h3>{" "}
+              <h3>Please enter valid customer details.</h3>{" "}
             </div>
           </Stack>
         </Box>

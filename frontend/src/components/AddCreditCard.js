@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 
 function AddCreditCard() {
   const [postData, setPostData] = useState({
-    customerId: 0,
+    // customerId: 0,
   });
   const [loader, setLoader] = useState(false);
   const [renderResponse, setRenderResponse] = useState(false);
@@ -60,7 +60,7 @@ function AddCreditCard() {
       <h2>Add Credit Card</h2>
       <Box display="flex" justifyContent="center" alignItems="center" mt={5}>
         <form onSubmit={handleSubmit}>
-          <Stack spacing={3} direction="row" sx={{ width: 400 }}>
+          <Stack spacing={3} direction="column" sx={{ width: 400 }}>
             <div>
               <TextField
                 type="number"
@@ -68,17 +68,40 @@ function AddCreditCard() {
                 name="customerId"
                 value={postData.customerId}
                 onChange={handleInputChange}
+                required
               />
             </div>
             <div>
+              <TextField
+                type="text"
+                label="First Name"
+                name="firstName"
+                value={postData.firstName}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div>
+              <TextField
+                type="text"
+                label="Last Name"
+                name="lastName"
+                value={postData.lastName}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            
+            <div>
               <Button
                 variant="contained"
-                color="success"
                 size="large"
                 type="submit"
+                class="btn btn-outline-primary"
               >
                 ADD
               </Button>
+              
             </div>
           </Stack>
         </form>
@@ -123,7 +146,7 @@ function AddCreditCard() {
             sx={{ width: 400 }}
           >
             <div>
-              <h4>Please enter a proper customer id.</h4>
+              <h4>Please enter valid customer details.</h4>
             </div>
           </Stack>
         </Box>
