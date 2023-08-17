@@ -65,17 +65,7 @@ function AddCreditCard() {
             direction="column"
             sx={{ width: 400, padding: "10px" }}
           >
-            <div>
-              <TextField
-                type="number"
-                label="Customer id"
-                name="customerId"
-                value={postData.customerId}
-                onChange={handleInputChange}
-                sx={{ width: "90%" }}
-                required
-              />
-            </div>
+            
             <div>
               <TextField
                 type="text"

@@ -4,6 +4,7 @@ import ChartValues from "./ChartValues";
  
 let myChart = null;
 function Charts({data}){
+    console.log(data);
     const [chart,setChart]=useState("");
     const clear =()=>{
         myChart.data.labels=[];
@@ -12,9 +13,12 @@ function Charts({data}){
     };
     const updateChart =(event)=>{
         const {value} = event.target;
-        setChart(value);
-        if(Object.keys(data).length != 0){
+        if(value =="null"){
+            clear();
+        }
+        else if(Object.keys(data).length != 0){
             const arr = data[value];
+            setChart(value);
             console.log(arr);
             let labels = [];
             let values = [];
@@ -85,6 +89,7 @@ function Charts({data}){
             <div id="charts">
                 <h2>Data Visualisations</h2>
             <select id="chartOptions" onChange={updateChart}>
+                <option value="null">Select an option</option>
                 <option value="gender">Gender</option>
                 <option value="category">Category</option>
                 <option value="merchant">Merchant</option>
@@ -94,7 +99,8 @@ function Charts({data}){
             </select>
             </div>
             <canvas id="ordersChart"></canvas>
-            <h3>{chart}</h3>
+            {chart &&
+            <h3>{chart}</h3>}
             <ChartValues prop={data[chart]}/>
         </div>
     )
