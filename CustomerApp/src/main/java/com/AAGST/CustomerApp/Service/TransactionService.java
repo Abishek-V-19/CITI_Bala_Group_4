@@ -6,6 +6,7 @@ import com.AAGST.CustomerApp.utils.SummaryData;
 import com.AAGST.CustomerApp.utils.TransactionPerPage;
 import com.AAGST.CustomerApp.utils.TransactionSender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -123,6 +124,8 @@ public class TransactionService {
         GroupOperation groupByCity = group("city").sum("amt").as("amount");
         GroupOperation groupByState = group("state").sum("amt").as("amount");
         GroupOperation groupByProfession = group("Job").sum("amt").as("amount");
+
+        SortOperation sortDesc = sort(Sort.by(Sort.Direction.DESC,"amount"));
 //        System.out.println(filterStates);
 //        AggregationOperation limit = Aggregation.limit(20);
 
@@ -130,32 +133,32 @@ public class TransactionService {
         Aggregation aggregation;
         AggregationResults<AggregateData> aggList;
 
-        aggregation = newAggregation(filterStates,groupByGender);
+        aggregation = newAggregation(filterStates,groupByGender,sortDesc);
         aggList =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class);
         result = aggList.getMappedResults();
         summaryData.setGender(result);
 
-        aggregation = newAggregation(filterStates,groupByCategory);
+        aggregation = newAggregation(filterStates,groupByCategory,sortDesc);
         aggList =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class);
         result = aggList.getMappedResults();
         summaryData.setCategory(result);
 
-        aggregation = newAggregation(filterStates,groupByMerchant);
+        aggregation = newAggregation(filterStates,groupByMerchant,sortDesc);
         aggList =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class);
         result = aggList.getMappedResults();
         summaryData.setMerchant(result);
 
-        aggregation = newAggregation(filterStates,groupByCity);
+        aggregation = newAggregation(filterStates,groupByCity,sortDesc);
         aggList =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class);
         result = aggList.getMappedResults();
         summaryData.setCity(result);
 
-        aggregation = newAggregation(filterStates,groupByState);
+        aggregation = newAggregation(filterStates,groupByState,sortDesc);
         aggList =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class);
         result = aggList.getMappedResults();
         summaryData.setState(result);
 
-        aggregation = newAggregation(filterStates,groupByProfession);
+        aggregation = newAggregation(filterStates,groupByProfession,sortDesc);
         aggList =mongoTemplate.aggregate(aggregation, mongoTemplate.getCollectionName(Transaction.class), AggregateData.class);
         result = aggList.getMappedResults();
         summaryData.setProfession(result);
