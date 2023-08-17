@@ -1,5 +1,5 @@
 import React, { useState,useEffect} from "react";
-import {categories,professions,merchants,city ,states} from "./filterOptions";
+import {categories,professions,merchants,city ,states} from "./filterOptionslessdata";
 import {getCharturl, getFilters} from './scripts';
 import Table from './Table';
 import Charts from './Charts';
@@ -8,8 +8,12 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 // import '../styles.css';
 import '../filter.css';
+import CircularProgress from "@mui/material/CircularProgress";
+import { filledInputClasses } from "@mui/material";
+
 
 function Filters() {
+  const [loader, setLoader] = useState(false);
   const [response, setResponse] = useState({});
   const [chartdata, setChartdata]=useState({});
   const [transaction, setTransaction] = useState({
@@ -48,6 +52,7 @@ function Filters() {
     event.preventDefault();
     const url = getFilters(transaction);
     const charturl = getCharturl(transaction);
+    setLoader(true);
     console.log(charturl);
     setTransaction((prevData) => ({
       ...prevData,
@@ -64,12 +69,13 @@ function Filters() {
       console.error("Error:", error);
     }
     try {
-      console.log(transaction);
       await fetch(charturl)
         .then((response) => {
           return response.json();
         })
-        .then((data) => setChartdata(data));
+        .then((data) => {
+          setChartdata(data)
+        setLoader(false)});
     } catch (error) {
       console.error("Error:", error);
     }
@@ -196,7 +202,15 @@ function Filters() {
         <h5 id="pageNo">{parseInt(transaction.pageno) + 1}</h5>
         <button onClick={handleNext}><SkipNextIcon fontSize="large"/></button>
       </div>
+      {loader && (
+        <div>
+          <br></br>
+          <CircularProgress />
+        </div>
+      )}
+      {!loader &&
       <Charts data={chartdata}/>
+}
     </div>
   );
 }

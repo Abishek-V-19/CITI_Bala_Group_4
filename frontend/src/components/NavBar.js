@@ -19,6 +19,7 @@ const pages = [
   "Summary",
   "Add Credit Card",
   "Delete Credit Card",
+  "Add Customer"
 ];
 const settings = ["Logout"];
 
@@ -108,6 +109,11 @@ function ResponsiveAppBar() {
                   <Typography textAlign="center">Delete credit card</Typography>
                 </Link>
               </MenuItem>
+              <MenuItem key="addCustomer" onClick={handleCloseNavMenu}>
+                <Link to="/AddCustomer">
+                  <Typography textAlign="center">Add customer</Typography>
+                </Link>
+              </MenuItem>
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -159,6 +165,15 @@ function ResponsiveAppBar() {
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 DELETE CREDIT CARD
+              </Button>
+            </Link>
+            <Link to="/AddCustomer" style={{ textDecoration: "none" }}>
+              <Button
+                key="addCustomer"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Add Customer
               </Button>
             </Link>
           </Box>
