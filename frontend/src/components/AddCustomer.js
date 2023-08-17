@@ -164,17 +164,12 @@ function AddCustomer(){
             sx={{ width: 400 }}
           >
             <div>
-              <h3>Credit card added successfully.</h3>{" "}
+              <h3>Customer Created successfully.</h3>{" "}
             </div>
             <div>
               <b>Customer id:</b> {renderData.customerId}
             </div>
-            <div>
-              <b>Credit card number:</b> {renderData.cardNumber}{" "}
-            </div>
-            <div>
-              <b>Status:</b> <span>{renderData.status}</span>{" "}
-            </div>
+            
           </Stack>
         </Box>
       )}
