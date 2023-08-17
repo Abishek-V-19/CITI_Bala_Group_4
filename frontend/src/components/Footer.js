@@ -1,17 +1,11 @@
+import React from "react";
 
-import React from 'react';
-
-function Footer() {
-  return (
+const Footer = () => (
     <footer>
-      <p>&copy; 2023 Your Company Name. All rights reserved.</p>
-      <nav>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-      </nav>
-    </footer>
-  );
-}
+  <div className="footer">
+    <p>@Credit Card Management System</p>
+  </div>
+  </footer>
+);
 
 export default Footer;

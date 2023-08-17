@@ -8,8 +8,7 @@ function Home() {
         <h1>CREDIT CARD MANAGEMENT SYSTEM</h1>
       </div>
       <div>
-        It has roots in a piece of classical Latin literature from 45 BC, making
-        it over 2000 years old.
+      Unlock Your Financial Potential: Where Dreams Meet Opportunities, Your Journey Begins with Us.
       </div>
     </div>
   );

@@ -79,7 +79,7 @@ function AddCreditCard() {
 
   return (
     <div>
-      <h2>Add Credit Card</h2>
+      <h2 className="heading">ADD CREDIT CARD</h2>
       <Box display="flex" justifyContent="center" alignItems="center" mt={5}>
         <form onSubmit={handleSubmit2}>
           <Stack
@@ -218,6 +218,7 @@ function AddCreditCard() {
         </Box>
       )}
     </div>
+
   );
 }
 

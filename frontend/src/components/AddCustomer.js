@@ -59,7 +59,7 @@ function AddCustomer(){
       };
     return(
         <div>
-      <h2>Add Customer</h2>
+      <h2 className="heading">ADD CUSTOMER</h2>
       <Box display="flex" justifyContent="center" alignItems="center" mt={5}>
         <form onSubmit={handleSubmit}>
           <Stack

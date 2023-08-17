@@ -4,7 +4,7 @@ import Filters from "./Filters";
 function Transaction(){
     return(
         <div>
-            <h2>Transactions</h2>
+            <h2 className="heading">TRANSACTION HISTORY </h2>
             <Filters/>
         </div>
     )

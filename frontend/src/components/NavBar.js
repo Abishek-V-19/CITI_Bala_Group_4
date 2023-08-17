@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 
+
 const pages = [
   "Transaction",
   "Summary",
@@ -22,6 +23,8 @@ const pages = [
   "Add Customer"
 ];
 const settings = ["Logout"];
+
+
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -46,8 +49,9 @@ function ResponsiveAppBar() {
     <AppBar position="static" sx={{ backgroundColor: "#3C697D" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          
           <Typography
+            className="buttont"
             variant="h5"
             noWrap
             component="a"
@@ -62,7 +66,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            NEUEDA
+            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> AAGSTbank
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -118,6 +122,7 @@ function ResponsiveAppBar() {
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
+          className="buttont"
             variant="h5"
             noWrap
             component="a"
@@ -133,16 +138,18 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            NEUEDA
+         AAGSTbank
+            
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Link to="/transactions" style={{ textDecoration: "none" }}>
               <Button
+                
                 key="transaction"
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                TRANSACTIONS
+                <div className="buttont">TRANSACTIONS</div>
               </Button>
             </Link>
             <Link to="/add" style={{ textDecoration: "none" }}>
@@ -155,7 +162,7 @@ function ResponsiveAppBar() {
                   display: "block",
                 }}
               >
-                ADD CREDIT CARD
+                <div className="buttont">Add-Credit-Card</div>
               </Button>
             </Link>
             <Link to="/delete" style={{ textDecoration: "none" }}>
@@ -164,7 +171,7 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                VIEW CREDIT CARD
+                <div className="buttont">VIEW-CREDIT-CARD</div>
               </Button>
             </Link>
             <Link to="/AddCustomer" style={{ textDecoration: "none" }}>
@@ -173,7 +180,7 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                Add Customer
+                <div className="buttont">Add-Customer</div>
               </Button>
             </Link>
           </Box>
