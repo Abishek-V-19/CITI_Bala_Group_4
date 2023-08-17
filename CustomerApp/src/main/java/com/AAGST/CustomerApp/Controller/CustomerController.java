@@ -1,8 +1,11 @@
 package com.AAGST.CustomerApp.Controller;
 
+import com.AAGST.CustomerApp.Entity.CreditCard;
 import com.AAGST.CustomerApp.Entity.Customer;
 import com.AAGST.CustomerApp.Entity.Transaction;
 import com.AAGST.CustomerApp.Service.CustomerService;
+import com.AAGST.CustomerApp.utils.CreditCardAddSender;
+import com.AAGST.CustomerApp.utils.CustomerAddSender;
 import com.AAGST.CustomerApp.utils.TransactionSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,5 +33,13 @@ public class CustomerController {
         catch(Exception e){
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
         }
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Customer> addCreditCard(@RequestBody CustomerAddSender recieved)
+    {
+        Customer created = this.customerService.addCustomer(recieved);
+        return ResponseEntity.status(HttpStatus.OK).body(created);
+
     }
 }
