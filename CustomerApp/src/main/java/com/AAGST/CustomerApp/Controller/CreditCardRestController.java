@@ -6,12 +6,12 @@ import com.AAGST.CustomerApp.Service.CreditCardService;
 import com.AAGST.CustomerApp.utils.CreditCardAddSender;
 import com.AAGST.CustomerApp.utils.CreditCardDeleteSender;
 import com.AAGST.CustomerApp.utils.TransactionSender;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -19,26 +19,25 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/CreditCard")
 public class CreditCardRestController {
-
     private final static Logger LOGGER  = LoggerFactory.getLogger(CreditCardRestController.class);
+
     @Autowired
     private CreditCardService creditCardService;
 
     @PostMapping("/add")
     public ResponseEntity<CreditCard> addCreditCard(@RequestBody CreditCardAddSender query)
-    {
-        LOGGER.debug("ROUTE CALLED - /CreditCard/add - POST METHOD - FUNCTION NAME - addCreditCard()");
-        try {
-            System.out.println("cut id ------- "+query.getCustomerId());
-            CreditCard newCreditCard = this.creditCardService.addCreditCard(query);
-            return ResponseEntity.status(HttpStatus.OK).body(newCreditCard);
-        }
-        catch(Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
-        }
+    {   try {
+        LOGGER.debug("*************POST METHOD - FUNCTION NAME - addCreditCard()*************");
+        System.out.println("cut id ------- "+query.getCustomerId());
+        CreditCard newCreditCard = this.creditCardService.addCreditCard(query);
+        return ResponseEntity.status(HttpStatus.OK).body(newCreditCard);
+    }
+    catch(Exception e){
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
+    }
     }
 
-//    @PostMapping("/delete")
+    //    @PostMapping("/delete")
 //    public ResponseEntity<String> deleteCreditCard(@RequestBody CreditCardDeleteSender query)
 //    {
 //        try {
@@ -52,8 +51,8 @@ public class CreditCardRestController {
     @PutMapping("/delete/{cardNumber}/{customerId}/{firstName}/{lastName}")
     public ResponseEntity<String> updateCreditCardStatus(@PathVariable String cardNumber,@PathVariable long customerId,@PathVariable String firstName,@PathVariable String lastName)
     {
-        LOGGER.debug("ROUTE CALLED - /CreditCard/delete/{cardNumber}/{customerId}/{firstName}/{lastName} - PUT METHOD - FUNCTION NAME - updateCreditCardStatus()");
         try {
+            LOGGER.debug("*************PUT METHOD - FUNCTION NAME - updateCreditCardStatus()*************");
             CreditCardDeleteSender query = new CreditCardDeleteSender(cardNumber,customerId,firstName,lastName);
             this.creditCardService.updateCreditCard(query);
             return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");
@@ -66,8 +65,8 @@ public class CreditCardRestController {
     @DeleteMapping("/delete/{cardNumber}/{customerId}/{firstName}/{lastName}")
     public ResponseEntity<String> deleteCreditCard(@PathVariable String cardNumber,@PathVariable long customerId,@PathVariable String firstName,@PathVariable String lastName)
     {
-        LOGGER.debug("ROUTE CALLED - /CreditCard/delete/{cardNumber}/{customerId}/{firstName}/{lastName} - DELETE METHOD - FUNCTION NAME - deleteCreditCard()");
         try {
+            LOGGER.debug("*************PUT METHOD - FUNCTION NAME - deleteCreditCard()*************");
             CreditCardDeleteSender query = new CreditCardDeleteSender(cardNumber,customerId,firstName,lastName);
             this.creditCardService.deleteCreditCard(query);
             return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");

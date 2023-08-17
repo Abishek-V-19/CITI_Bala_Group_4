@@ -1,5 +1,5 @@
 <configuration>
-    <property name="LOG_ROOT" value="d:/temp" />
+    <property name="LOG_ROOT" value="./log" />
     <property name="LOG_FILE_NAME" value="CustomerDetailsApplication" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -24,11 +24,11 @@
         </encoder>
     </appender>
 
-    <logger name="log1" level="INFO" additivity="false">
+    <logger name="log1" level="DEBUG" additivity="false">
         <appender-ref ref="FILE"/>
     </logger>
 
-    <root level="ERROR">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </root>

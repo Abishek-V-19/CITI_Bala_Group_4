@@ -5,6 +5,8 @@ import com.AAGST.CustomerApp.utils.AggregateData;
 import com.AAGST.CustomerApp.utils.SummaryData;
 import com.AAGST.CustomerApp.utils.TransactionPerPage;
 import com.AAGST.CustomerApp.utils.TransactionSender;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -24,6 +26,7 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 @Service
 public class TransactionService {
+    private final static Logger LOGGER  = LoggerFactory.getLogger(TransactionService.class);
     @Autowired
     private MongoTemplate mongoTemplate;
 
@@ -83,6 +86,7 @@ public class TransactionService {
         return query;
     }
     public List<Transaction> getTransactions(TransactionSender recieved){
+        LOGGER.info("*************SERVICE - TransactionService FUNCTION NAME - getTransactions()*************");
         Query query = getQuery(new Query(),recieved);
         query.limit(20);
         List<Transaction> ret= this.mongoTemplate.find(query,Transaction.class);
@@ -90,6 +94,7 @@ public class TransactionService {
 
     }
     public TransactionPerPage getTransactionByPagination(int pageNo,int size,TransactionSender recieved){
+        LOGGER.info("*************SERVICE - TransactionService FUNCTION NAME - getTransactionByPagination()*************");
         // pageNo - tells the page no. we want
         // size - no. of docs per page
         Pageable pageable = PageRequest.of(pageNo,size);
@@ -113,7 +118,7 @@ public class TransactionService {
     }
 
     public SummaryData getSummary(TransactionSender recieved){
-        System.out.println("hello --- ");
+        LOGGER.info("*************SERVICE - TransactionService FUNCTION NAME - getSummary()*************");
         SummaryData summaryData = new SummaryData();
 
         MatchOperation filterStates = this.getMatchOperationObj(recieved);

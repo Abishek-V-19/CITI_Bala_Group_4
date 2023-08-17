@@ -1,5 +1,6 @@
 package com.AAGST.CustomerApp.Service;
 
+import com.AAGST.CustomerApp.Controller.CreditCardRestController;
 import com.AAGST.CustomerApp.Entity.CreditCard;
 import com.AAGST.CustomerApp.Entity.Customer;
 import com.AAGST.CustomerApp.Exception.CardNotExistException;
@@ -9,6 +10,8 @@ import com.AAGST.CustomerApp.Repository.CustomerRepository;
 import com.AAGST.CustomerApp.utils.CreditCardAddSender;
 import com.AAGST.CustomerApp.utils.CreditCardDeleteSender;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
@@ -25,6 +28,9 @@ public class CreditCardService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    private final static Logger LOGGER  = LoggerFactory.getLogger(CreditCardService.class);
+
+
     private String curDateTime(){
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -32,6 +38,7 @@ public class CreditCardService {
         return formattedDateTime;
     }
     public CreditCard addCreditCard(CreditCardAddSender recieved) throws CustomerNotExistException{
+        LOGGER.debug("*************SERVICE - CreditCardService - FUNCTION NAME - addCreditCard()*************");
         // checking if customerId exist and if exist generate a creditcard
         CreditCard newCreditCard = new CreditCard();
         Date date = new Date();
@@ -57,6 +64,7 @@ public class CreditCardService {
     }
 
     public CreditCard deleteCreditCard(CreditCardDeleteSender recieved) throws CardNotExistException {
+        LOGGER.debug("*************SERVICE - CreditCardService - FUNCTION NAME - deleteCreditCard()*************");
         // checking if creditcard exist by cardnumber and customerId
         Query query1 = new Query(Criteria.where("_id").is(recieved.getCardNumber()));
         query1.addCriteria(Criteria.where("customerId").is(recieved.getCustomerId()));
@@ -75,6 +83,7 @@ public class CreditCardService {
         return found;
     }
     public CreditCard updateCreditCard(CreditCardDeleteSender recieved) throws CardNotExistException {
+        LOGGER.debug("*************SERVICE - CreditCardService - FUNCTION NAME - updateCreditCard()*************");
         // checking if creditcard exist by cardnumber and customerId
         Query query1 = new Query(Criteria.where("_id").is(recieved.getCardNumber()));
         query1.addCriteria(Criteria.where("customerId").is(recieved.getCustomerId()));
