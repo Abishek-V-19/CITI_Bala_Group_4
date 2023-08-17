@@ -60,7 +60,11 @@ function AddCreditCard() {
       <h2>Add Credit Card</h2>
       <Box display="flex" justifyContent="center" alignItems="center" mt={5}>
         <form onSubmit={handleSubmit}>
-          <Stack spacing={3} direction="column" sx={{ width: 400 }}>
+          <Stack
+            spacing={3}
+            direction="column"
+            sx={{ width: 400, padding: "10px" }}
+          >
             <div>
               <TextField
                 type="number"
@@ -68,6 +72,7 @@ function AddCreditCard() {
                 name="customerId"
                 value={postData.customerId}
                 onChange={handleInputChange}
+                sx={{ width: "90%" }}
                 required
               />
             </div>
@@ -78,6 +83,7 @@ function AddCreditCard() {
                 name="firstName"
                 value={postData.firstName}
                 onChange={handleInputChange}
+                sx={{ width: "90%" }}
                 required
               />
             </div>
@@ -88,10 +94,11 @@ function AddCreditCard() {
                 name="lastName"
                 value={postData.lastName}
                 onChange={handleInputChange}
+                sx={{ width: "90%" }}
                 required
               />
             </div>
-            
+
             <div>
               <Button
                 variant="contained"
@@ -101,7 +108,6 @@ function AddCreditCard() {
               >
                 ADD
               </Button>
-              
             </div>
           </Stack>
         </form>
@@ -118,7 +124,7 @@ function AddCreditCard() {
             spacing={1}
             direction="column"
             justifyContent="center"
-            alignItems="flex-start"
+            alignItems="center"
             sx={{ width: 400 }}
           >
             <div>
@@ -142,7 +148,7 @@ function AddCreditCard() {
             spacing={1}
             direction="column"
             justifyContent="center"
-            alignItems="flex-start"
+            alignItems="center"
             sx={{ width: 400 }}
           >
             <div>

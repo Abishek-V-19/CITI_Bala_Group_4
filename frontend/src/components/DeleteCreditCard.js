@@ -47,7 +47,7 @@ function DeleteCreditCard() {
       <h2>Delete Credit Card</h2>
       <Box display="flex" justifyContent="center" alignItems="center" mt={5}>
         <form onSubmit={handleSubmit}>
-          <Stack spacing={3} direction="column" sx={{ width: 600 }}>
+          <Stack spacing={3} direction="column" sx={{ width: 400 }}>
             <div>
               <TextField
                 type="number"
@@ -55,6 +55,7 @@ function DeleteCreditCard() {
                 name="customerId"
                 value={putData.customerId}
                 onChange={handleInputChange}
+                sx={{ width: "90%" }}
                 required
               />
             </div>
@@ -65,6 +66,7 @@ function DeleteCreditCard() {
                 name="cardNumber"
                 value={putData.cardNumber}
                 onChange={handleInputChange}
+                sx={{ width: "90%" }}
                 required
               />
             </div>
@@ -75,6 +77,7 @@ function DeleteCreditCard() {
                 name="firstName"
                 value={putData.firstName}
                 onChange={handleInputChange}
+                sx={{ width: "90%" }}
                 required
               />
             </div>
@@ -85,14 +88,18 @@ function DeleteCreditCard() {
                 name="lastName"
                 value={putData.lastName}
                 onChange={handleInputChange}
+                sx={{ width: "90%" }}
                 required
               />
             </div>
             <div>
-              <Button type="submit" variant="contained" class="btn btn-outline-primary">
+              <Button
+                type="submit"
+                variant="contained"
+                class="btn btn-outline-primary"
+              >
                 DELETE
               </Button>
-              
             </div>
           </Stack>
         </form>
@@ -109,7 +116,7 @@ function DeleteCreditCard() {
             direction="column"
             justifyContent="center"
             alignItems="flex-start"
-            sx={{ width: 600 }}
+            sx={{ width: 400 }}
           >
             <div>
               <h3>Card is deleted successfully.</h3>{" "}
@@ -124,7 +131,7 @@ function DeleteCreditCard() {
             direction="column"
             justifyContent="center"
             alignItems="flex-start"
-            sx={{ width: 600 }}
+            sx={{ width: 400 }}
           >
             <div>
               <h3>Please enter valid customer details.</h3>{" "}
