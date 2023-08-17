@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -17,12 +19,16 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/CreditCard")
 public class CreditCardRestController {
+
+    private final static Logger LOGGER  = LoggerFactory.getLogger(CreditCardRestController.class);
     @Autowired
     private CreditCardService creditCardService;
 
     @PostMapping("/add")
     public ResponseEntity<CreditCard> addCreditCard(@RequestBody CreditCardAddSender query)
-    {   try {
+    {
+        LOGGER.debug("ROUTE CALLED - /CreditCard/add - POST METHOD - FUNCTION NAME - addCreditCard()");
+        try {
             System.out.println("cut id ------- "+query.getCustomerId());
             CreditCard newCreditCard = this.creditCardService.addCreditCard(query);
             return ResponseEntity.status(HttpStatus.OK).body(newCreditCard);
@@ -46,6 +52,7 @@ public class CreditCardRestController {
     @PutMapping("/delete/{cardNumber}/{customerId}/{firstName}/{lastName}")
     public ResponseEntity<String> updateCreditCardStatus(@PathVariable String cardNumber,@PathVariable long customerId,@PathVariable String firstName,@PathVariable String lastName)
     {
+        LOGGER.debug("ROUTE CALLED - /CreditCard/delete/{cardNumber}/{customerId}/{firstName}/{lastName} - PUT METHOD - FUNCTION NAME - updateCreditCardStatus()");
         try {
             CreditCardDeleteSender query = new CreditCardDeleteSender(cardNumber,customerId,firstName,lastName);
             this.creditCardService.updateCreditCard(query);
@@ -59,6 +66,7 @@ public class CreditCardRestController {
     @DeleteMapping("/delete/{cardNumber}/{customerId}/{firstName}/{lastName}")
     public ResponseEntity<String> deleteCreditCard(@PathVariable String cardNumber,@PathVariable long customerId,@PathVariable String firstName,@PathVariable String lastName)
     {
+        LOGGER.debug("ROUTE CALLED - /CreditCard/delete/{cardNumber}/{customerId}/{firstName}/{lastName} - DELETE METHOD - FUNCTION NAME - deleteCreditCard()");
         try {
             CreditCardDeleteSender query = new CreditCardDeleteSender(cardNumber,customerId,firstName,lastName);
             this.creditCardService.deleteCreditCard(query);
