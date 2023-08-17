@@ -27,7 +27,7 @@ public class CreditCardRestControllerTest {
     @BeforeEach
     public void setUp(){
         template=new TestRestTemplate();
-        c1 = new CreditCardAddSender(1,"raju","RR");
+        c1 = new CreditCardAddSender(127,"Brittany","Mccarthy");
     }
 
     @Test
@@ -42,7 +42,7 @@ public class CreditCardRestControllerTest {
     @Test
     public void updateCreditCardTest1() throws URISyntaxException{
 
-        URI uri = new URI("http://localhost:8080/CreditCard/delete/64db0da20a0a49293b000064/2");
+        URI uri = new URI("http://localhost:8080/CreditCard/delete/64dd9f5d04c226269e000064/127/Brittany/Mccarthy");
         ResponseEntity<String> response = template.exchange(uri,
                 HttpMethod.PUT,
                 null,
@@ -55,7 +55,7 @@ public class CreditCardRestControllerTest {
     @Test
     public void updateCreditCardTest2() throws URISyntaxException{
 
-        URI uri = new URI("http://localhost:8080/CreditCard/delete/1212/2");
+        URI uri = new URI("http://localhost:8080/CreditCard/delete/1212/2/sdd/dsds");
         ResponseEntity<String> response = template.exchange(uri,
                 HttpMethod.PUT,
                 null,
