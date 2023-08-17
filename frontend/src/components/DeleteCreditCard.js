@@ -28,7 +28,7 @@ function DeleteCreditCard() {
     setLoader(true);
     try {
       console.log(putData);
-      let url = `http://localhost:8080/CreditCard/delete/${putData.cardNumber}/${putData.customerId}`;
+      let url = `http://localhost:8080/CreditCard/delete/${putData.cardNumber}/${putData.customerId}/${putData.firstName}/${putData.lastName}`;
       const response = await axios.put(url);
       console.log(response.data);
       setLoader(false);
