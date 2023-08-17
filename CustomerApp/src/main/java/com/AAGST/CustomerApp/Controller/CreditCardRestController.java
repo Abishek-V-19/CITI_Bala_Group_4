@@ -43,11 +43,11 @@ public class CreditCardRestController {
 //            return ResponseEntity.status(HttpStatus.OK).body("Delete was'nt Successfully");
 //        }
 //    }
-    @PutMapping("/delete/{cardNumber}/{customerId}")
-    public ResponseEntity<String> updateCreditCardStatus(@PathVariable String cardNumber,@PathVariable long customerId)
+    @PutMapping("/delete/{cardNumber}/{customerId}/{firstName}/{lastName}")
+    public ResponseEntity<String> updateCreditCardStatus(@PathVariable String cardNumber,@PathVariable long customerId,@PathVariable String firstName,@PathVariable String lastName)
     {
         try {
-            CreditCardDeleteSender query = new CreditCardDeleteSender(cardNumber,customerId);
+            CreditCardDeleteSender query = new CreditCardDeleteSender(cardNumber,customerId,firstName,lastName);
             this.creditCardService.updateCreditCard(query);
             return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");
         }
@@ -56,11 +56,11 @@ public class CreditCardRestController {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Delete Not successful");
         }
     }
-    @DeleteMapping("/delete/{cardNumber}/{customerId}")
-    public ResponseEntity<String> deleteCreditCard(@PathVariable String cardNumber,@PathVariable long customerId)
+    @DeleteMapping("/delete/{cardNumber}/{customerId}/{firstName}/{lastName}")
+    public ResponseEntity<String> deleteCreditCard(@PathVariable String cardNumber,@PathVariable long customerId,@PathVariable String firstName,@PathVariable String lastName)
     {
         try {
-            CreditCardDeleteSender query = new CreditCardDeleteSender(cardNumber,customerId);
+            CreditCardDeleteSender query = new CreditCardDeleteSender(cardNumber,customerId,firstName,lastName);
             this.creditCardService.deleteCreditCard(query);
             return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");
         }

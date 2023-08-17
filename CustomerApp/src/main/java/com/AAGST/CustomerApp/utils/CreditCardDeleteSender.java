@@ -3,10 +3,14 @@ package com.AAGST.CustomerApp.utils;
 public class CreditCardDeleteSender {
     private String cardNumber;
     private long customerId;
+    private String firstName;
+    private String lastName;
 
-    public CreditCardDeleteSender(String cardNumber, long customerId) {
+    public CreditCardDeleteSender(String cardNumber, long customerId, String firstName, String lastName) {
         this.cardNumber = cardNumber;
         this.customerId = customerId;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public CreditCardDeleteSender() {
@@ -28,11 +32,29 @@ public class CreditCardDeleteSender {
         this.customerId = customerId;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     @Override
     public String toString() {
         return "CreditCardDeleteSender{" +
-                "cardNumber=" + cardNumber +
+                "cardNumber='" + cardNumber + '\'' +
                 ", customerId=" + customerId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 '}';
     }
 }

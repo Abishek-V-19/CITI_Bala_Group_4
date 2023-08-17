@@ -41,10 +41,12 @@ public class CreditCardService {
         newCreditCard.setCustomerId(recieved.getCustomerId());
         newCreditCard.setStatus("Active");
 
-        return addCreditCardWorker(newCreditCard);
+        return addCreditCardWorker(newCreditCard,recieved.getFirstName(),recieved.getLastName());
     }
-    public CreditCard addCreditCardWorker(CreditCard newCreditCard) throws CustomerNotExistException{
+    public CreditCard addCreditCardWorker(CreditCard newCreditCard,String firstName,String lastName) throws CustomerNotExistException{
         Query query = new Query(Criteria.where("_id").is(newCreditCard.getCustomerId()));
+        query.addCriteria(Criteria.where("first").is(firstName));
+        query.addCriteria(Criteria.where("last").is(lastName));
 
         if(!this.mongoTemplate.exists(query, Customer.class)){
             throw new CustomerNotExistException("Customer Doesnot exist - Please create customer");
@@ -56,28 +58,36 @@ public class CreditCardService {
 
     public CreditCard deleteCreditCard(CreditCardDeleteSender recieved) throws CardNotExistException {
         // checking if creditcard exist by cardnumber and customerId
-        Query query = new Query(Criteria.where("_id").is(recieved.getCardNumber()));
-        query.addCriteria(Criteria.where("customerId").is(recieved.getCustomerId()));
+        Query query1 = new Query(Criteria.where("_id").is(recieved.getCardNumber()));
+        query1.addCriteria(Criteria.where("customerId").is(recieved.getCustomerId()));
 
-        if(!this.mongoTemplate.exists(query, CreditCard.class)){
+        Query query2 = new Query(Criteria.where("_id").is(recieved.getCustomerId()));
+        query2.addCriteria(Criteria.where("first").is(recieved.getFirstName()));
+        query2.addCriteria(Criteria.where("last").is(recieved.getLastName()));
+
+        if(!this.mongoTemplate.exists(query1, CreditCard.class) || !this.mongoTemplate.exists(query2, Customer.class)){
             throw new CardNotExistException("Credit card details wrong - please enter a valid card number and corresponding customer number");
         }
 
-        CreditCard found = mongoTemplate.findOne(query,CreditCard.class);
+        CreditCard found = mongoTemplate.findOne(query1,CreditCard.class);
         mongoTemplate.remove(found);
 //        System.out.println(found.toString());
         return found;
     }
     public CreditCard updateCreditCard(CreditCardDeleteSender recieved) throws CardNotExistException {
         // checking if creditcard exist by cardnumber and customerId
-        Query query = new Query(Criteria.where("_id").is(recieved.getCardNumber()));
-        query.addCriteria(Criteria.where("customerId").is(recieved.getCustomerId()));
+        Query query1 = new Query(Criteria.where("_id").is(recieved.getCardNumber()));
+        query1.addCriteria(Criteria.where("customerId").is(recieved.getCustomerId()));
 
-        if(!this.mongoTemplate.exists(query, CreditCard.class)){
+        Query query2 = new Query(Criteria.where("_id").is(recieved.getCustomerId()));
+        query2.addCriteria(Criteria.where("first").is(recieved.getFirstName()));
+        query2.addCriteria(Criteria.where("last").is(recieved.getLastName()));
+
+        if(!this.mongoTemplate.exists(query1, CreditCard.class) || !this.mongoTemplate.exists(query2, Customer.class)){
             throw new CardNotExistException("Credit card details wrong - please enter a valid card number and corresponding customer number");
         }
 
-        CreditCard found = mongoTemplate.findOne(query,CreditCard.class);
+        CreditCard found = mongoTemplate.findOne(query1,CreditCard.class);
         found.setStatus("Cancelled");
         mongoTemplate.save(found);
 //        System.out.println(found.toString());
