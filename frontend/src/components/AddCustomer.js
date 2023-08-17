@@ -4,6 +4,9 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
 
 function AddCustomer(){
     const [postData, setPostData] = useState({
@@ -26,7 +29,7 @@ function AddCustomer(){
         event.preventDefault();
         setRenderResponse(false);
         setLoader(true);
-        const url = "http://localhost:8080/";
+        const url = "http://localhost:8080/customer/add";
     
         try {
           console.log(postData);
@@ -87,7 +90,7 @@ function AddCustomer(){
               />
             </div>
             <div>
-              <TextField
+              {/* <TextField
                 type="text"
                 label="Gender"
                 name="gender"
@@ -95,7 +98,20 @@ function AddCustomer(){
                 onChange={handleInputChange}
                 sx={{ width: "90%" }}
                 required
-              />
+              /> */}
+               <InputLabel id="gender-label">Gender</InputLabel>
+                <Select
+                  labelId="gender-label"
+                  id="gender"
+                  value={postData.gender}
+                  label="Gender"
+                  onChange={handleInputChange}
+                  sx={{ width: "90%" }}
+                >
+                  <MenuItem value={"M"}>Male</MenuItem>
+                  <MenuItem value={"F"}>Female</MenuItem>
+                </Select>
+           
             </div>
             <div>
               <TextField

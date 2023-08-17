@@ -1,7 +1,9 @@
 HELP.md
-target/
+CustomerApp/target
+frontend/node_modules
 !CustomerApp/.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
+
 !**/src/test/**/target/
 
 ### STS ###
@@ -28,6 +30,6 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
-
+log/
 ### VS Code ###
 .vscode/
