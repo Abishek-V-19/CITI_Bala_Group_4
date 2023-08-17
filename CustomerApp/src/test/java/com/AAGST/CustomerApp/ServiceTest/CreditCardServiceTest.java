@@ -42,19 +42,17 @@ public class CreditCardServiceTest {
     }
     @BeforeEach
     public void setUp(){
-        c1 = new CreditCard("12121",1,"15-08-2023","Active");
-        c2 = new CreditCard("121232",10000,"15-08-2023","Active");
+        c1 = new CreditCard("12121",1,"15-08-2023","Active","type");
+        c2 = new CreditCard("121232",10000,"15-08-2023","Active","type");
 
 
 
         firstName = "raj";
         lastName = "RR";
 
-        cds1 = new CreditCardDeleteSender("12121",1,firstName,lastName);
+        cds1 = new CreditCardDeleteSender("12121",1);
 
         q1 = new Query(Criteria.where("_id").is(c1.getCustomerId()));
-        q1.addCriteria(Criteria.where("first").is(firstName));
-        q1.addCriteria(Criteria.where("last").is(lastName));
         q2 = new Query(Criteria.where("_id").is(cds1.getCardNumber()));
         q2.addCriteria(Criteria.where("customerId").is(cds1.getCustomerId()));
     }
@@ -66,7 +64,7 @@ public class CreditCardServiceTest {
         when(mongoTemplate.save(c1)).thenReturn(c1);
         when(mongoTemplate.exists(q1, Customer.class)).thenReturn(true);
         try {
-            CreditCard returnObj = creditCardService.addCreditCardWorker(c1,firstName,lastName);
+            CreditCard returnObj = creditCardService.addCreditCardWorker(c1);
             assertEquals(c1.toString(),returnObj.toString());
         }
         catch(Exception e){
@@ -81,7 +79,7 @@ public class CreditCardServiceTest {
         when(mongoTemplate.save(c2)).thenReturn(c2);
         when(mongoTemplate.exists(q1, Customer.class)).thenReturn(false);
         try {
-            CreditCard returnObj = creditCardService.addCreditCardWorker(c1,firstName,lastName);
+            CreditCard returnObj = creditCardService.addCreditCardWorker(c1);
             assertEquals(c2.toString(),returnObj.toString());
         }
         catch(Exception e){

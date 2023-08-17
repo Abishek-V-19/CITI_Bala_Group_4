@@ -48,12 +48,12 @@ public class CreditCardRestController {
 //            return ResponseEntity.status(HttpStatus.OK).body("Delete was'nt Successfully");
 //        }
 //    }
-    @PutMapping("/delete/{cardNumber}/{customerId}/{firstName}/{lastName}")
-    public ResponseEntity<String> updateCreditCardStatus(@PathVariable String cardNumber,@PathVariable long customerId,@PathVariable String firstName,@PathVariable String lastName)
+    @PutMapping("/delete/{cardNumber}/{customerId}")
+    public ResponseEntity<String> updateCreditCardStatus(@PathVariable String cardNumber,@PathVariable long customerId)
     {
         try {
             LOGGER.debug("*************PUT METHOD - FUNCTION NAME - updateCreditCardStatus()*************");
-            CreditCardDeleteSender query = new CreditCardDeleteSender(cardNumber,customerId,firstName,lastName);
+            CreditCardDeleteSender query = new CreditCardDeleteSender(cardNumber,customerId);
             this.creditCardService.updateCreditCard(query);
             return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");
         }
@@ -62,12 +62,12 @@ public class CreditCardRestController {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Delete Not successful");
         }
     }
-    @DeleteMapping("/delete/{cardNumber}/{customerId}/{firstName}/{lastName}")
-    public ResponseEntity<String> deleteCreditCard(@PathVariable String cardNumber,@PathVariable long customerId,@PathVariable String firstName,@PathVariable String lastName)
+    @DeleteMapping("/delete/{cardNumber}/{customerId}")
+    public ResponseEntity<String> deleteCreditCard(@PathVariable String cardNumber,@PathVariable long customerId)
     {
         try {
             LOGGER.debug("*************PUT METHOD - FUNCTION NAME - deleteCreditCard()*************");
-            CreditCardDeleteSender query = new CreditCardDeleteSender(cardNumber,customerId,firstName,lastName);
+            CreditCardDeleteSender query = new CreditCardDeleteSender(cardNumber,customerId);
             this.creditCardService.deleteCreditCard(query);
             return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully");
         }
