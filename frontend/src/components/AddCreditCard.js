@@ -9,6 +9,7 @@ function AddCreditCard() {
   const [postData, setPostData] = useState({
     // customerId: 0,
   });
+  const [customerFound, setCustomerFound] = useState(0);
   const [loader, setLoader] = useState(false);
   const [renderResponse, setRenderResponse] = useState(false);
   const [renderData, setRenderData] = useState({});
@@ -77,41 +78,34 @@ function AddCreditCard() {
               />
             </div>
             <div>
-              <TextField
-                type="text"
-                label="First Name"
-                name="firstName"
-                value={postData.firstName}
-                onChange={handleInputChange}
-                sx={{ width: "90%" }}
-                required
-              />
-            </div>
-            <div>
-              <TextField
-                type="text"
-                label="Last Name"
-                name="lastName"
-                value={postData.lastName}
-                onChange={handleInputChange}
-                sx={{ width: "90%" }}
-                required
-              />
-            </div>
-
-            <div>
               <Button
                 variant="contained"
                 size="large"
                 type="submit"
                 class="btn btn-outline-primary"
               >
-                ADD
+                SEARCH
               </Button>
             </div>
           </Stack>
         </form>
       </Box>
+      {customerFound === 1 ? (
+        <div>
+          Customer found!
+          <Button
+            variant="contained"
+            size="large"
+            class="btn btn-outline-primary"
+          >
+            ADD
+          </Button>
+        </div>
+      ) : customerFound === 2 ? (
+        <div>Customer not found!</div>
+      ) : (
+        <div></div>
+      )}
       {loader && (
         <div>
           {" "}
