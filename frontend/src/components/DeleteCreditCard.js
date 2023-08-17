@@ -71,28 +71,6 @@ function DeleteCreditCard() {
               />
             </div>
             <div>
-              <TextField
-                type="text"
-                label="First Name"
-                name="firstName"
-                value={putData.firstName}
-                onChange={handleInputChange}
-                sx={{ width: "90%" }}
-                required
-              />
-            </div>
-            <div>
-              <TextField
-                type="text"
-                label="Last Name"
-                name="lastName"
-                value={putData.lastName}
-                onChange={handleInputChange}
-                sx={{ width: "90%" }}
-                required
-              />
-            </div>
-            <div>
               <Button
                 type="submit"
                 variant="contained"

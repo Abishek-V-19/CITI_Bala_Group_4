@@ -9,6 +9,8 @@ function AddCreditCard() {
   const [postData, setPostData] = useState({
     // customerId: 0,
   });
+  const [customerDetails, setCustomerDetails] = useState({});
+  const [customerFound, setCustomerFound] = useState(0);
   const [loader, setLoader] = useState(false);
   const [renderResponse, setRenderResponse] = useState(false);
   const [renderData, setRenderData] = useState({});
@@ -21,7 +23,25 @@ function AddCreditCard() {
       [name]: value,
     }));
   };
-
+  const handleSubmit2 = async (event) => {
+    event.preventDefault();
+    const url = `http://localhost:8080/customer?customerId=${postData.customerId}`;
+    setRenderResponse(false);
+    setRenderError(false);
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+      setCustomerDetails((prevData) => ({
+        ...prevData,
+        ...data,
+      }));
+      setCustomerFound(1);
+    } catch (error) {
+      console.log(error);
+      setCustomerFound(2);
+    }
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     setRenderResponse(false);
@@ -59,7 +79,7 @@ function AddCreditCard() {
     <div>
       <h2>Add Credit Card</h2>
       <Box display="flex" justifyContent="center" alignItems="center" mt={5}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit2}>
           <Stack
             spacing={3}
             direction="column"
@@ -67,41 +87,51 @@ function AddCreditCard() {
           >
             
             <div>
-              <TextField
-                type="text"
-                label="First Name"
-                name="firstName"
-                value={postData.firstName}
-                onChange={handleInputChange}
-                sx={{ width: "90%" }}
-                required
-              />
-            </div>
-            <div>
-              <TextField
-                type="text"
-                label="Last Name"
-                name="lastName"
-                value={postData.lastName}
-                onChange={handleInputChange}
-                sx={{ width: "90%" }}
-                required
-              />
-            </div>
-
-            <div>
               <Button
                 variant="contained"
                 size="large"
                 type="submit"
                 class="btn btn-outline-primary"
               >
-                ADD
+                SEARCH
               </Button>
             </div>
           </Stack>
         </form>
       </Box>
+      {customerFound === 1 ? (
+        <Box mt={4} display="flex" justifyContent="center" alignItems="center">
+          <Stack
+            spacing={1}
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            sx={{ width: 400 }}
+          >
+            <div>Customer found with id {customerDetails.customerId}</div>
+            <div>
+              Name: {customerDetails.firstName} {customerDetails.lastName}
+            </div>
+            <div>Click the add button to add a new credit card.</div>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <Button
+                  variant="contained"
+                  size="large"
+                  class="btn btn-outline-primary"
+                  type="submit"
+                >
+                  ADD
+                </Button>
+              </div>
+            </form>
+          </Stack>
+        </Box>
+      ) : customerFound === 2 ? (
+        <div>Customer not found!</div>
+      ) : (
+        <div></div>
+      )}
       {loader && (
         <div>
           {" "}
