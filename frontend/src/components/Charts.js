@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Chart from 'chart.js/auto';
-import { List } from "@mui/material";
+import ChartValues from "./ChartValues";
  
 let myChart = null;
 function Charts({data}){
+    const [chart,setChart]=useState("");
     const clear =()=>{
         myChart.data.labels=[];
         myChart.data.datasets.data=[];
@@ -11,6 +12,7 @@ function Charts({data}){
     };
     const updateChart =(event)=>{
         const {value} = event.target;
+        setChart(value);
         if(Object.keys(data).length != 0){
             const arr = data[value];
             console.log(arr);
@@ -35,7 +37,7 @@ function Charts({data}){
             ]
             },
             options: {
-                legend: { display: false },
+                legend: { display: true },
                 title: {
                     display: true,
                     text: 'Country Sales'
@@ -79,6 +81,9 @@ function Charts({data}){
 
     return(
         <div class="chart-container">
+            <br></br>
+            <div id="charts">
+                <h2>Data Visualisations</h2>
             <select id="chartOptions" onChange={updateChart}>
                 <option value="gender">Gender</option>
                 <option value="category">Category</option>
@@ -87,8 +92,10 @@ function Charts({data}){
                 <option value="state">State</option>
                 <option value="profession">Profession</option>
             </select>
+            </div>
             <canvas id="ordersChart"></canvas>
-            <button onClick={clear}>clear</button>
+            <h3>{chart}</h3>
+            <ChartValues prop={data[chart]}/>
         </div>
     )
 }
