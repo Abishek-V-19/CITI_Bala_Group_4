@@ -11,13 +11,15 @@ public class CreditCard {
     private long customerId;
     private String creationTime;
     private String status;
+    private String description;
 
 
-    public CreditCard(String cardNumber, long customerId, String creationTime,String status) {
+    public CreditCard(String cardNumber, long customerId, String creationTime,String status,String description) {
         this.cardNumber = cardNumber;
         this.customerId = customerId;
         this.creationTime = creationTime;
         this.status = status;
+        this.description = description;
     }
 
     public CreditCard() {
@@ -55,14 +57,22 @@ public class CreditCard {
         this.status = status;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "CreditCard{" +
-                "cardNumber=" + cardNumber +
+                "cardNumber='" + cardNumber + '\'' +
                 ", customerId=" + customerId +
-                ", creationTime='" + creationTime  +
-                ", Status="+ status+'\''+
+                ", creationTime='" + creationTime + '\'' +
+                ", status='" + status + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
-
 }

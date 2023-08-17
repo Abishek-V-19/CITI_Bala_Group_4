@@ -67,11 +67,8 @@ public class CreditCardService {
         Query query1 = new Query(Criteria.where("_id").is(recieved.getCardNumber()));
         query1.addCriteria(Criteria.where("customerId").is(recieved.getCustomerId()));
 
-        Query query2 = new Query(Criteria.where("_id").is(recieved.getCustomerId()));
-        query2.addCriteria(Criteria.where("first").is(recieved.getFirstName()));
-        query2.addCriteria(Criteria.where("last").is(recieved.getLastName()));
 
-        if(!this.mongoTemplate.exists(query1, CreditCard.class) || !this.mongoTemplate.exists(query2, Customer.class)){
+        if(!this.mongoTemplate.exists(query1, CreditCard.class)){
             throw new CardNotExistException("Credit card details wrong - please enter a valid card number and corresponding customer number");
         }
 
@@ -86,11 +83,8 @@ public class CreditCardService {
         Query query1 = new Query(Criteria.where("_id").is(recieved.getCardNumber()));
         query1.addCriteria(Criteria.where("customerId").is(recieved.getCustomerId()));
 
-        Query query2 = new Query(Criteria.where("_id").is(recieved.getCustomerId()));
-        query2.addCriteria(Criteria.where("first").is(recieved.getFirstName()));
-        query2.addCriteria(Criteria.where("last").is(recieved.getLastName()));
 
-        if(!this.mongoTemplate.exists(query1, CreditCard.class) || !this.mongoTemplate.exists(query2, Customer.class)){
+        if(!this.mongoTemplate.exists(query1, CreditCard.class)){
             throw new CardNotExistException("Credit card details wrong - please enter a valid card number and corresponding customer number");
         }
 

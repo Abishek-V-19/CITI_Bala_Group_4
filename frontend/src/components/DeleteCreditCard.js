@@ -28,7 +28,7 @@ function DeleteCreditCard() {
     setLoader(true);
     try {
       console.log(putData);
-      let url = `http://localhost:8080/CreditCard/delete/${putData.cardNumber}/${putData.customerId}/${putData.firstName}/${putData.lastName}`;
+      let url = `http://localhost:8080/CreditCard/delete/${putData.cardNumber}/${putData.customerId}`;
       const response = await axios.put(url);
       console.log(response.data);
       setLoader(false);
@@ -65,28 +65,6 @@ function DeleteCreditCard() {
                 label="Card Number"
                 name="cardNumber"
                 value={putData.cardNumber}
-                onChange={handleInputChange}
-                sx={{ width: "90%" }}
-                required
-              />
-            </div>
-            <div>
-              <TextField
-                type="text"
-                label="First Name"
-                name="firstName"
-                value={putData.firstName}
-                onChange={handleInputChange}
-                sx={{ width: "90%" }}
-                required
-              />
-            </div>
-            <div>
-              <TextField
-                type="text"
-                label="Last Name"
-                name="lastName"
-                value={putData.lastName}
                 onChange={handleInputChange}
                 sx={{ width: "90%" }}
                 required
