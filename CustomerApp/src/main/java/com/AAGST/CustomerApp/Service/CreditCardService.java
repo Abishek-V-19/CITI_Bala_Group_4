@@ -22,6 +22,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
+/**
+ *
+ * The creditCredit services class - contains all the code related to adding, cancelling and viewing creditcard details
+ */
 @Service
 public class CreditCardService {
     @Autowired
@@ -29,7 +33,10 @@ public class CreditCardService {
 
     private final static Logger LOGGER  = LoggerFactory.getLogger(CreditCardService.class);
 
-
+    /**
+     * This generates
+     * @return
+     */
     private String curDateTime(){
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
