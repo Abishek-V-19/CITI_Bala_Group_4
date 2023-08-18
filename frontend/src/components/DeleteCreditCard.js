@@ -21,6 +21,7 @@ function DeleteCreditCard() {
     // customerId: 0,
     // cardNumber: "cardnumberhere",
   });
+  const [cardsFound, setCardsFound] = useState(false);
   const [customerId, setCustomerId] = useState(0);
   const [customerDetails, setCustomerDetails] = useState([]);
   const [customerFound, setCustomerFound] = useState(0);
@@ -43,11 +44,13 @@ function DeleteCreditCard() {
       const response = await fetch(url);
       const data = await response.json();
       console.log(data);
-      if (data.length === 0) {
-        setCustomerFound(3);
+      if (data.creditCards.length === 0) {
+        //setCustomerFound(3);
+        setCardsFound(false);
       } else {
-        setCustomerFound(1);
+        setCardsFound(true);
       }
+      setCustomerFound(1);
       setCustomerId(putData.customerId);
       setCustomerDetails(data);
     } catch (error) {
@@ -122,6 +125,7 @@ function DeleteCreditCard() {
             {/* {customerDetails.map((card, index) => {
               return <div key={index}>{card.cardNumber}</div>;
             })} */}
+            {cardsFound &&
             <form onSubmit={handleSubmit}>
             <Stack spacing={3} direction="column" sx={{ width: 400 }}>
               <div>
@@ -148,6 +152,7 @@ function DeleteCreditCard() {
               </div>
               </Stack>
             </form>
+            }
           </Stack>
         </Box>
       ) : customerFound === 2 ? (
