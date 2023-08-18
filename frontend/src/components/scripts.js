@@ -1,6 +1,7 @@
 
+import { baseUrl } from "../url";
 export function getFilters(val){
-	let url = "http://localhost:8080/Transactions/pages?";
+	let url = 	`${baseUrl}/Transactions/pages?`;
 	// if(val.upper=="" || val.lower==""){
 	// 	val.upper = "0";
 	// 	val.lower = "0";
@@ -26,7 +27,7 @@ export function getFilters(val){
 }
 export function getCharturl(val){
 	
-	let url = "http://localhost:8080/Transactions/summary?";
+	let url = `${baseUrl}/Transactions/summary?`;
 	url+="&gender="+ val["gender"];
 	url+="&category="+val["category"];
 	url+="&merchant="+val["merchant"];

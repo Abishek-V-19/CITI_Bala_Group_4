@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { baseUrl } from "../url";
 import TextField from "@mui/material/TextField";
 import CircularProgress from "@mui/material/CircularProgress";
 import Stack from "@mui/material/Stack";
@@ -27,7 +28,7 @@ function AddCreditCard() {
   };
   const handleSubmit2 = async (event) => {
     event.preventDefault();
-    const url = `http://localhost:8080/customer?customerId=${postData.customerId}&customerId=${postData.description}`;
+    const url = `${baseUrl}/customer?customerId=${postData.customerId}&customerId=${postData.description}`;
     setRenderResponse(false);
     setRenderError(false);
     try {
@@ -48,7 +49,7 @@ function AddCreditCard() {
     event.preventDefault();
     setRenderResponse(false);
     setLoader(true);
-    const url = "http://localhost:8080/CreditCard/add";
+    const url = `${baseUrl}/CreditCard/add`;
 
     try {
       console.log(postData);

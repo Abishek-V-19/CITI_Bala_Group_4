@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { baseUrl } from "../url";
 import TextField from "@mui/material/TextField";
 import CircularProgress from "@mui/material/CircularProgress";
 import Stack from "@mui/material/Stack";
@@ -29,7 +30,7 @@ function AddCustomer(){
         event.preventDefault();
         setRenderResponse(false);
         setLoader(true);
-        const url = "http://localhost:8080/customer/add";
+        const url = `${baseUrl}/customer/add`;
     
         try {
           console.log(postData);
@@ -90,15 +91,19 @@ function AddCustomer(){
               />
             </div>
             <div>
-              {/* <TextField
-                type="text"
+            <TextField
                 label="Gender"
                 name="gender"
                 value={postData.gender}
                 onChange={handleInputChange}
                 sx={{ width: "90%" }}
-                required
-              /> */}
+                select
+                required> 
+                 <MenuItem value={"M"}>Male</MenuItem>
+                  <MenuItem value={"F"}>Female</MenuItem>
+              </TextField>
+               
+                 {/*
                <InputLabel id="gender-label">Gender</InputLabel>
                 <Select
                   labelId="gender-label"
@@ -110,7 +115,7 @@ function AddCustomer(){
                 >
                   <MenuItem value={"M"}>Male</MenuItem>
                   <MenuItem value={"F"}>Female</MenuItem>
-                </Select>
+                </Select> */}
            
             </div>
             <div>

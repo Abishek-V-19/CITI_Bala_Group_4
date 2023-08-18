@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { baseUrl } from "../url";
 import CircularProgress from "@mui/material/CircularProgress";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
@@ -37,7 +38,7 @@ function DeleteCreditCard() {
   };
   const handleSubmit2 = async (event) => {
     event.preventDefault();
-    const url = `http://localhost:8080/CreditCard?customerId=${putData.customerId}`;
+    const url = `${baseUrl}/CreditCard?customerId=${putData.customerId}`;
     setRenderResponse(false);
     setRenderError(false);
     try {
@@ -64,7 +65,7 @@ function DeleteCreditCard() {
     setLoader(true);
     try {
       console.log(putData);
-      let url = `http://localhost:8080/CreditCard/delete/${putData.cardNumber}/${putData.customerId}`;
+      let url = `${baseUrl}/CreditCard/delete/${putData.cardNumber}/${putData.customerId}`;
       const response = await axios.put(url);
       console.log(response.data);
       setLoader(false);
