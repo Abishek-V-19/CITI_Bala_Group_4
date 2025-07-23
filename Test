@@ -1,0 +1,37 @@
+import re
+
+def extract_methods(content):
+    """Extract method names from an Apex class file."""
+    methods = []
+
+    # Extract the class name (supporting more variations)
+    class_name_match = re.search(r'(?:public|private|global)?\s*(?:with|without)?\s*sharing?\s*class\s+(\w+)', content)
+    if class_name_match is None:
+        return []
+    class_name = class_name_match.group(1)
+
+    # Remove lines with @AuraEnabled (handles params like (cacheable=true))
+    content_without_aura_enabled = re.sub(
+        r'@AuraEnabled\s*(\([^\)]*\))?',
+        '',
+        content,
+        flags=re.MULTILINE
+    )
+
+    # Match method definitions with improved pattern
+    method_pattern = r'^\s*(public|private|protected|global)\s+(?:static\s+)?(?:virtual\s+)?(?:override\s+)?\s*\w+\s+(\w+)\s*\('
+    matches = re.findall(method_pattern, content_without_aura_enabled, re.MULTILINE)
+
+    # Add class name to method names
+    for match in matches:
+        methods.append(f"{class_name}.{match[1]}")
+
+    return methods
+
+# Example usage
+with open("BrokerageSOWController.cls", 'r', encoding="utf-8") as file:
+    content = file.read()
+
+methods = extract_methods(content)
+print("Extracted Methods:")
+print(methods)
